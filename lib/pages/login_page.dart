@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_talks_flutter/pages/item_index.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key, required this.title});
-
-  final String title;
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const LoginPage(title: 'Restaurant Talks Flutter'),
+      home: const LoginPage(),
     );
   }
 
@@ -24,9 +19,24 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: Text(
-          'ログイン画面',
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'ログイン画面',
+            ),
+            ElevatedButton(
+              child: const Text('ログインボタン'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ItemIndex(title: 'Restaurant Talks Flutter')),
+                );
+                print("loginボタンが押されました");
+              },
+            ),
+          ],
         ),
       )
     );
