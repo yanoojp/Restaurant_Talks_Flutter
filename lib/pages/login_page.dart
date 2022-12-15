@@ -7,7 +7,7 @@ class LoginPage extends StatefulWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const LoginPage(),
+      home: LoginPage(),
     );
   }
 
@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'ログイン画面',
             ),
             ElevatedButton(
@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ItemIndex(title: 'Restaurant Talks Flutter')),
+                  MaterialPageRoute(builder: (context) => ItemIndex()),
                 );
                 print("loginボタンが押されました");
               },
