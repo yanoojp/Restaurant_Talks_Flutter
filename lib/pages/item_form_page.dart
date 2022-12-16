@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'item_index.dart';
 
 class ItemFormPage extends StatefulWidget {
   const ItemFormPage({super.key, required this.title, this.itemObject});
@@ -10,6 +11,7 @@ class ItemFormPage extends StatefulWidget {
 }
 
 class _ItemFormPageState extends State<ItemFormPage> {
+  int _counter = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -17,46 +19,81 @@ class _ItemFormPageState extends State<ItemFormPage> {
     String itemStock = widget.itemObject != null ? "${widget.itemObject['itemStock']}" : '0';
     String itemDetail = widget.itemObject != null ? "${widget.itemObject['itemDetail']}" : '';
 
+    void incrementCounter() {
+      setState(() {
+        _counter++;
+      });
+    }
+
+    void decrementCounter() {
+      setState(() {
+        _counter--;
+      });
+    }
+
     return Scaffold(
         appBar: AppBar(
          title: Text(widget.title),
         ),
-        body: Column(
-          children: [
-            TextField(
-              controller: TextEditingController(
-                  text: itemName,
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              TextField(
+                controller: TextEditingController(
+                    text: itemName,
+                ),
+                onChanged: (value) {
+                  itemName = value;
+                },
               ),
-              onChanged: (value) {
-                itemName = value;
-              },
-            ),
-            TextField(
-              controller: TextEditingController(
-                  text: itemStock,
+              Padding(
+                padding: const EdgeInsets.only(top: 30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    FloatingActionButton(
+                      heroTag: "btn1",
+                      onPressed: decrementCounter,
+                      tooltip: 'Decrement',
+                      child: Icon(Icons.remove),
+                    ),
+                    Text(
+                        (_counter + int.parse(itemStock)).toString(),
+                        style: Theme.of(context).textTheme.headline4,
+                    ),
+                    FloatingActionButton(
+                      heroTag: "btn2",
+                      onPressed: incrementCounter,
+                      tooltip: 'Increment',
+                      child: Icon(Icons.add),
+                    ),
+                  ],
+                ),
               ),
-              onChanged: (value) {
-                itemStock = value;
-              },
-            ),
-            TextField(
-              controller: TextEditingController(
-                  text: itemDetail,
+              TextField(
+                controller: TextEditingController(
+                    text: itemDetail,
+                ),
+                onChanged: (value) {
+                  itemDetail = value;
+                },
               ),
-              onChanged: (value) {
-                itemDetail = value;
-              },
-            ),
-            ElevatedButton(
-              onPressed: () {
-                print("保存ボタンが押されました");
-                print(itemName);
-                print(itemStock);
-                print(itemDetail);
-              },
-              child: Text('保存する'),
-            ),
-          ],
+              ElevatedButton(
+                onPressed: () {
+                  print("保存ボタンが押されました");
+                  print(itemName);
+                  print(itemStock);
+                  print(itemDetail);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ItemIndex()),
+                  );
+                },
+                child: Text('保存する'),
+              ),
+            ],
+          ),
         ),
     );
   }
