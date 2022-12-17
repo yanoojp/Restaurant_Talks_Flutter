@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'item_index.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class ItemFormPage extends StatefulWidget {
   const ItemFormPage({super.key, required this.title, this.itemObject});
@@ -12,6 +14,9 @@ class ItemFormPage extends StatefulWidget {
 
 class _ItemFormPageState extends State<ItemFormPage> {
   int _counter = 0;
+
+  final ImagePicker _picker = ImagePicker();
+  File? _file;
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +84,16 @@ class _ItemFormPageState extends State<ItemFormPage> {
                   itemDetail = value;
                 },
               ),
+              OutlinedButton(
+                  onPressed: () async {
+                    final XFile? _image = await _picker.pickImage(source: ImageSource.gallery);
+                    _file = File(_image!.path);
+                    setState(() {});
+                  },
+                  child: const Text('画像を選択')
+              ),
+              //画像表示エリア
+              if(_file != null) Image.file(_file!, fit: BoxFit.cover,),
               ElevatedButton(
                 onPressed: () {
                   print("保存ボタンが押されました");
