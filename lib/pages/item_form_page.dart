@@ -23,6 +23,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
     String itemName = widget.itemObject != null ? "${widget.itemObject['itemName']}" : '';
     String itemStock = widget.itemObject != null ? "${widget.itemObject['itemStock']}" : '0';
     String itemDetail = widget.itemObject != null ? "${widget.itemObject['itemDetail']}" : '';
+    String itemImage = widget.itemObject != null ? "${widget.itemObject['itemImage']}" : '';
 
     void incrementCounter() {
       setState(() {
@@ -93,7 +94,8 @@ class _ItemFormPageState extends State<ItemFormPage> {
                   child: const Text('画像を選択')
               ),
               //画像表示エリア
-              if(_file != null) Image.file(_file!, fit: BoxFit.cover,),
+              if (_file != null && itemImage == '') Image.file(_file!, fit: BoxFit.cover,)
+              else if (itemImage != '') Image.network(itemImage),
               ElevatedButton(
                 onPressed: () {
                   print("保存ボタンが押されました");

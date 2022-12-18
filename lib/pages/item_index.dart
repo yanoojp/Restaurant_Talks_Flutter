@@ -17,16 +17,19 @@ class _ItemIndexState extends State<ItemIndex> {
       'itemName': "サーモンマリネ",
       'itemStock': 1,
       'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
+      'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
     },
     {
       'itemName': "タコのカルパッチョ",
       'itemStock': 2,
       'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
+      'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
     },
     {
       'itemName': "スパニッシュオムレツ",
       'itemStock': 3,
       'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
+      'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
     },
   ];
 
