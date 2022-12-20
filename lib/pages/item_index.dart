@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/pages/login_page.dart';
+import '../components/bottom_navigation.dart';
 import 'item_form_page.dart';
 
 class ItemIndex extends StatefulWidget {
@@ -82,6 +83,7 @@ class _ItemIndexState extends State<ItemIndex> {
           print("新規追加ボタンが押されました");
         },
       ),
+      bottomNavigationBar: BottomNavigation(screenId: 0,),
     );
   }
 }
