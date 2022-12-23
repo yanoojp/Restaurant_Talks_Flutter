@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
+import '../components/bottom_navigation.dart';
+
 String randomString() {
   final random = Random.secure();
   final values = List<int>.generate(16, (i) => random.nextInt(255));
@@ -30,6 +32,7 @@ class ChatRoomState extends State<ChatRoom> {
       messages: _messages,
       onSendPressed: _handleSendPressed,
     ),
+    bottomNavigationBar: BottomNavigation(screenId: 1, loginStatus: widget.loginStatus),
   );
 
   void _addMessage(types.Message message) {
