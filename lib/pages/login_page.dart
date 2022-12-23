@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/pages/item_index.dart';
 import 'package:restaurant_talks_flutter/pages/sign_up.dart';
 
+import '../components/Header.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -42,7 +44,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+        appBar: Header(),
+        body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Center(
           child: Column(

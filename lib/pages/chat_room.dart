@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
+import '../components/Header.dart';
 import '../components/bottom_navigation.dart';
 
 String randomString() {
@@ -27,6 +28,7 @@ class ChatRoomState extends State<ChatRoom> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+    appBar: Header(),
     body: Chat(
       user: _user,
       messages: _messages,
