@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:restaurant_talks_flutter/pages/item_index.dart';
 import '../pages/chat_room.dart';
 
@@ -25,7 +26,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         } else if (_selectedIndex == 0) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ItemIndex(loginStatus: widget.loginStatus)),
+            PageTransition(type: PageTransitionType.leftToRight, child: ItemIndex(loginStatus: widget.loginStatus))
           );
         } else if (_selectedIndex == 1) {
           Navigator.push(
