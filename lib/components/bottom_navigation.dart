@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/pages/item_index.dart';
-import '../pages/chat.dart';
+import '../pages/chat_room.dart';
 
 class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({super.key, required this.screenId});
+  const BottomNavigation({super.key, required this.screenId, required this.loginStatus});
   final int screenId;
+  final int loginStatus;
 
   @override
   State<BottomNavigation> createState() => _BottomNavigationState();
@@ -24,12 +25,12 @@ class _BottomNavigationState extends State<BottomNavigation> {
         } else if (_selectedIndex == 0) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ItemIndex()),
+            MaterialPageRoute(builder: (context) => ItemIndex(loginStatus: widget.loginStatus)),
           );
         } else if (_selectedIndex == 1) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Chat()),
+            MaterialPageRoute(builder: (context) => ChatRoom(loginStatus: widget.loginStatus,)),
           );
         }
       });
