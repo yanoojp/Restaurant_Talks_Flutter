@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/pages/login_page.dart';
+import '../components/Header.dart';
 import '../components/bottom_navigation.dart';
 import 'item_form_page.dart';
 
@@ -12,7 +13,6 @@ class ItemIndex extends StatefulWidget {
 }
 
 class _ItemIndexState extends State<ItemIndex> {
-  final String title = 'Restaurant Talks Flutter';
 
   var items = [
     {
@@ -40,22 +40,7 @@ class _ItemIndexState extends State<ItemIndex> {
     String title = 'Restaurant Talks Flutter';
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(title),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.logout),
-              onPressed: () => {
-                Navigator.push(
-                 context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                ),
-                print("ログアウトボタンが押されました")
-             },
-            ),
-          ],
-      ),
+      appBar: Header(),
       body: ButtonBar(
         alignment: MainAxisAlignment.spaceAround,
         children: [

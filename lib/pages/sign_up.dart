@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/pages/login_page.dart';
 
+import '../components/Header.dart';
 import 'item_index.dart';
 
 class SignUp extends StatefulWidget {
@@ -36,6 +37,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: Header(),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Center(

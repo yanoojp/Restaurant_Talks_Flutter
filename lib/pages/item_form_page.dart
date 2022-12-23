@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import '../components/Header.dart';
 import 'item_index.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -39,9 +41,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
     }
 
     return Scaffold(
-        appBar: AppBar(
-         title: Text(widget.title),
-        ),
+        appBar: Header(),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
@@ -105,7 +105,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                   print(itemDetail);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ItemIndex(loginStatus: widget.loginStatus,)),
+                    PageTransition(type: PageTransitionType.leftToRight, child: ItemIndex(loginStatus: widget.loginStatus,))
                   );
                 },
                 child: Text('保存する'),
