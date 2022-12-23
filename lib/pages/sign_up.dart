@@ -11,6 +11,28 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  List<DropdownMenuItem<int>> _items = [];
+  int _selectItem = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    setItems();
+    _selectItem = _items[0].value!;
+  }
+
+  void setItems() {
+    _items
+      ..add(const DropdownMenuItem(
+        child: Text('キッチン',),
+        value: 1,
+      ))
+      ..add(const DropdownMenuItem(
+        child: Text('ホール',),
+        value: 2,
+      ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +58,17 @@ class _SignUpState extends State<SignUp> {
                       hintText: 'パスワード'
                   ),
                 ),
+                Center(
+                    child: DropdownButton(
+                      items: _items,
+                      value: _selectItem,
+                      onChanged: (value) => {
+                        setState(() {
+                          _selectItem = value!;
+                        }),
+                      },
+                    )
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Column(
@@ -45,7 +78,7 @@ class _SignUpState extends State<SignUp> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => ItemIndex()),
+                            MaterialPageRoute(builder: (context) => ItemIndex(loginStatus: _selectItem,)),
                           );
                           print("SignUpボタンが押されました");
                         },

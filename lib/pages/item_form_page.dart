@@ -4,8 +4,9 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 class ItemFormPage extends StatefulWidget {
-  const ItemFormPage({super.key, required this.title, this.itemObject});
+  const ItemFormPage({super.key, required this.title, this.itemObject, required this.loginStatus});
   final String title;
+  final int loginStatus;
   final itemObject;
 
   @override
@@ -104,7 +105,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                   print(itemDetail);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ItemIndex()),
+                    MaterialPageRoute(builder: (context) => ItemIndex(loginStatus: widget.loginStatus,)),
                   );
                 },
                 child: Text('保存する'),

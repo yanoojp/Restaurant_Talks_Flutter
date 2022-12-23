@@ -4,7 +4,8 @@ import '../components/bottom_navigation.dart';
 import 'item_form_page.dart';
 
 class ItemIndex extends StatefulWidget {
-  const ItemIndex({super.key});
+  const ItemIndex({super.key, required this.loginStatus});
+  final int loginStatus;
 
   @override
   State<ItemIndex> createState() => _ItemIndexState();
@@ -64,7 +65,7 @@ class _ItemIndexState extends State<ItemIndex> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ItemFormPage(title: title, itemObject: items[i],)),
+                  MaterialPageRoute(builder: (context) => ItemFormPage(title: title, itemObject: items[i], loginStatus: widget.loginStatus,)),
                 );
                 print("${items[i]['itemName']}が押されました");
               },
@@ -78,12 +79,12 @@ class _ItemIndexState extends State<ItemIndex> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ItemFormPage(title: title)),
+            MaterialPageRoute(builder: (context) => ItemFormPage(title: title, loginStatus: widget.loginStatus,)),
           );
           print("新規追加ボタンが押されました");
         },
       ),
-      bottomNavigationBar: BottomNavigation(screenId: 0,),
+      bottomNavigationBar: BottomNavigation(screenId: 0, loginStatus: widget.loginStatus),
     );
   }
 }
