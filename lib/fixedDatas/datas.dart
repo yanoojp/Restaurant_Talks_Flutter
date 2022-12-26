@@ -148,6 +148,7 @@ final positions = [
   },
   {
     "positionId": 1,
-    "positionName": "ホール"}
+    "positionName": "ホール"
+  }
   ,
 ];

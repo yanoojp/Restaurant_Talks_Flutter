@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
 
 import '../components/Header.dart';
 import '../components/bottom_navigation.dart';
@@ -24,18 +25,28 @@ class ChatRoom extends StatefulWidget {
 }
 
 class ChatRoomState extends State<ChatRoom> {
+  final int currentScreenId = chatRoom;
+
   final List<types.Message> _messages = [];
   final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: Header(loginStatus: widget.loginStatus, guestNumber: widget.guestNumber,),
+    appBar: Header(
+      loginStatus: widget.loginStatus,
+      guestNumber: widget.guestNumber,
+      currentScreenId: currentScreenId,
+    ),
     body: Chat(
       user: _user,
       messages: _messages,
       onSendPressed: _handleSendPressed,
     ),
-    bottomNavigationBar: BottomNavigation(screenId: 1, loginStatus: widget.loginStatus, guestNumber: widget.guestNumber,),
+    bottomNavigationBar: BottomNavigation(
+      screenId: currentScreenId,
+      loginStatus: widget.loginStatus,
+      guestNumber: widget.guestNumber,
+    ),
   );
 
   void _addMessage(types.Message message) {
