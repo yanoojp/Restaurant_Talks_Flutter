@@ -26,7 +26,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         } else if (_selectedIndex == 0) {
           Navigator.push(
             context,
-            PageTransition(type: PageTransitionType.leftToRight, child: ItemIndex(loginStatus: widget.loginStatus))
+            PageTransition(type: PageTransitionType.leftToRight, child: ItemIndex(loginStatus: widget.loginStatus, prefectureName: '東京'))
           );
         } else if (_selectedIndex == 1) {
           Navigator.push(

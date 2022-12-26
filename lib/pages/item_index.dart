@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_talks_flutter/pages/login_page.dart';
+import 'package:restaurant_talks_flutter/fixedDatas/api_keys.dart';
+import 'package:weather/weather.dart';
 import '../components/Header.dart';
 import '../components/bottom_navigation.dart';
+import '../fixedDatas/datas.dart';
+import '../fixedDatas/fixed_expressions.dart';
 import 'item_form_page.dart';
 
 class ItemIndex extends StatefulWidget {
-  const ItemIndex({super.key, required this.loginStatus});
+  const ItemIndex({super.key, required this.loginStatus, required this.prefectureName});
   final int loginStatus;
+  final String prefectureName;
 
   @override
   State<ItemIndex> createState() => _ItemIndexState();
@@ -14,53 +18,89 @@ class ItemIndex extends StatefulWidget {
 
 class _ItemIndexState extends State<ItemIndex> {
 
-  var items = [
-    {
-      'itemName': "サーモンマリネ",
-      'itemStock': 1,
-      'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-      'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-    },
-    {
-      'itemName': "タコのカルパッチョ",
-      'itemStock': 2,
-      'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-      'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-    },
-    {
-      'itemName': "スパニッシュオムレツ",
-      'itemStock': 3,
-      'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-      'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-    },
-  ];
+  /// ** 天気情報の取得 ** //
+  late String cityName;
+  WeatherFactory wf = WeatherFactory(weatherApiKey, language: Language.JAPANESE);
+  String currentWeather = '';
+  late Future<String> cw;
+
+  Future<String> getCurrentLocationWeather(String cityName) async {
+    Weather w = await wf.currentWeatherByCityName(cityName);
+    return w.weatherDescription!;
+  }
+  /// ** 天気情報の取得 ** //
+
+  @override
+  void initState() {
+    super.initState();
+
+    // 天気のセット
+    cityName = widget.prefectureName;
+    cw = getCurrentLocationWeather(cityName);
+    cw.then((value) => {
+      currentWeather = value,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    String title = 'Restaurant Talks Flutter';
 
     return Scaffold(
-      appBar: Header(),
-      body: ButtonBar(
-        alignment: MainAxisAlignment.spaceAround,
+      appBar: const Header(),
+      body: Column(
         children: [
-          for(int i = 0; i < items.length; i++) ... {
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(fixedSize: Size(100, 80)),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ItemFormPage(title: title, itemObject: items[i], loginStatus: widget.loginStatus,)),
-                );
-                print("${items[i]['itemName']}が押されました");
-              },
-              child: Text("${items[i]['itemName']}"),
+          Container(
+            alignment: Alignment.topCenter,
+            height: MediaQuery.of(context).size.height / 100 * 67,
+            child: ButtonBar(
+              alignment: MainAxisAlignment.spaceAround,
+              children: [
+                for(int i = 0; i < items.length; i++) ... {
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(fixedSize: Size(100, 80)),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>
+                            ItemFormPage(
+                              title: title,
+                              itemObject: items[i],
+                              loginStatus: widget.loginStatus,
+                            )),
+                      );
+                      print("${items[i]['itemName']}が押されました");
+                    },
+                    child: Text("${items[i]['itemName']}"),
+                  ),
+                }
+              ],
             ),
-          }
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 25.0, left: 15.0),
+            child: Container(
+              width: double.infinity,
+              child: FutureBuilder(
+                  future: cw,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      // アイコンの表示はTodo
+                      return Text(
+                        '外の天気：$currentWeather',
+                        style: const TextStyle(
+                        ),
+                      );
+                    } else {
+                      return const Text("'外の天気：データ取得中...");
+                    }
+                  }
+              ),
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           Navigator.push(
             context,

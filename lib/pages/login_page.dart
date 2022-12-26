@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/pages/item_index.dart';
 import 'package:restaurant_talks_flutter/pages/sign_up.dart';
+import 'package:weather/weather.dart';
 
 import '../components/Header.dart';
+import '../fixedDatas/api_keys.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -20,13 +22,13 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   List<DropdownMenuItem<int>> _items = [];
-  int _selectItem = 0;
+  int _selectedPositionValue = 0;
 
   @override
   void initState() {
     super.initState();
     setItems();
-    _selectItem = _items[0].value!;
+    _selectedPositionValue = _items[0].value!;
   }
 
   void setItems() {
@@ -67,16 +69,24 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: 'パスワード'
                 ),
               ),
-              Center(
-                child: DropdownButton(
-                  items: _items,
-                  value: _selectItem,
-                  onChanged: (value) => {
-                    setState(() {
-                      _selectItem = value!;
-                    }),
-                  },
-                )
+              /* ポジション選択ドロップダウン　*/
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                      width: 115,
+                      child: Text('ポジションを選択', textAlign: TextAlign.center,)
+                  ),
+                  DropdownButton(
+                    items: _items,
+                    value: _selectedPositionValue,
+                    onChanged: (value) => {
+                      setState(() {
+                        _selectedPositionValue = value!;
+                      }),
+                    },
+                  )
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
@@ -87,9 +97,9 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ItemIndex(loginStatus: _selectItem)),
+                          MaterialPageRoute(builder: (context) => ItemIndex(loginStatus: _selectedPositionValue, prefectureName: '東京',)),
                         );
-                        print("SignUpボタンが押されました");
+                        print("Loginボタンが押されました");
                       },
                     ),
                     ElevatedButton(

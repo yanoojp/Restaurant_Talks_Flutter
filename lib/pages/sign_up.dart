@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/pages/login_page.dart';
-
 import '../components/Header.dart';
+import '../fixedDatas/datas.dart';
 import 'item_index.dart';
 
 class SignUp extends StatefulWidget {
@@ -12,26 +12,16 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  List<DropdownMenuItem<int>> _items = [];
-  int _selectItem = 0;
+  late int _selectedPositionValue;
+  late String selectedPrefectureValue;
 
   @override
   void initState() {
     super.initState();
-    setItems();
-    _selectItem = _items[0].value!;
-  }
 
-  void setItems() {
-    _items
-      ..add(const DropdownMenuItem(
-        child: Text('キッチン',),
-        value: 1,
-      ))
-      ..add(const DropdownMenuItem(
-        child: Text('ホール',),
-        value: 2,
-      ));
+    // ポジションと都道府県の初期値を設定
+    _selectedPositionValue = positions[0]['positionId'] as int;
+    selectedPrefectureValue = prefectures[0]!;
   }
 
   @override
@@ -60,16 +50,50 @@ class _SignUpState extends State<SignUp> {
                       hintText: 'パスワード'
                   ),
                 ),
-                Center(
-                    child: DropdownButton(
-                      items: _items,
-                      value: _selectItem,
+                /* ポジション選択ドロップダウン　*/
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                        width: 115,
+                        child: Text('ポジションを選択', textAlign: TextAlign.center,)
+                    ),
+                    DropdownButton(
+                      items: positions.map((list) => DropdownMenuItem(
+                                value: list['positionId'],
+                                child: Text(list['positionName'] as String)
+                              )).toList(),
+                      value: _selectedPositionValue,
                       onChanged: (value) => {
                         setState(() {
-                          _selectItem = value!;
+                          _selectedPositionValue = value as int;
                         }),
                       },
                     )
+                  ],
+                ),
+                /* 都道府県選択ドロップダウン　*/
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                        width: 115,
+                        child: Text('都道府県を選択', textAlign: TextAlign.center,)
+                    ),
+                    DropdownButton(
+                        items: prefectures
+                            .map((list) => DropdownMenuItem(
+                              value: list,
+                              child: Text(list)
+                            )).toList(),
+                        value: selectedPrefectureValue,
+                        onChanged: (String? value) {
+                          setState(() {
+                            selectedPrefectureValue = value!;
+                          });
+                        }
+                      )
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
@@ -80,9 +104,12 @@ class _SignUpState extends State<SignUp> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => ItemIndex(loginStatus: _selectItem,)),
+                            MaterialPageRoute(builder: (context) => ItemIndex(
+                                loginStatus: _selectedPositionValue,
+                                prefectureName: selectedPrefectureValue)
+                            ),
                           );
-                          print("SignUpボタンが押されました");
+                          print("SignUpボタンが押されました。県名：$selectedPrefectureValue");
                         },
                       ),
                       ElevatedButton(
@@ -92,7 +119,7 @@ class _SignUpState extends State<SignUp> {
                             context,
                             MaterialPageRoute(builder: (context) => LoginPage()),
                           );
-                          print("SignUp画面へボタンが押されました");
+                          print("Login画面へボタンが押されました");
                         },
                       ),
                     ],
