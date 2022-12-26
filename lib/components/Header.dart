@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../pages/login_page.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
@@ -20,7 +19,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.only(top: 5.0, right: 15.0),
           child: Text(
-            '残り\n${guestNumber}',
+            '残り\n$guestNumber',
             textAlign: TextAlign.center,
           ),
         ),

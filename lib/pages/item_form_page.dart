@@ -105,7 +105,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                   print(itemDetail);
                   Navigator.push(
                     context,
-                    PageTransition(type: PageTransitionType.leftToRight, child: ItemIndex(loginStatus: widget.loginStatus,))
+                    PageTransition(type: PageTransitionType.leftToRight, child: ItemIndex(loginStatus: widget.loginStatus, prefectureName: '東京'))
                   );
                 },
                 child: Text('保存する'),
