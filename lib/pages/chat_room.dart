@@ -15,8 +15,9 @@ String randomString() {
 
 class ChatRoom extends StatefulWidget {
   // キッチン、ホールでチャット画面を切り替えるためのloginStatusは各画面から送ってあります。
-  const ChatRoom({super.key, required this.loginStatus});
+  const ChatRoom({super.key, required this.loginStatus, required this.guestNumber});
   final int loginStatus;
+  final int guestNumber;
 
   @override
   ChatRoomState createState() => ChatRoomState();
@@ -28,13 +29,13 @@ class ChatRoomState extends State<ChatRoom> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: Header(),
+    appBar: Header(loginStatus: widget.loginStatus, guestNumber: widget.guestNumber,),
     body: Chat(
       user: _user,
       messages: _messages,
       onSendPressed: _handleSendPressed,
     ),
-    bottomNavigationBar: BottomNavigation(screenId: 1, loginStatus: widget.loginStatus),
+    bottomNavigationBar: BottomNavigation(screenId: 1, loginStatus: widget.loginStatus, guestNumber: widget.guestNumber,),
   );
 
   void _addMessage(types.Message message) {
