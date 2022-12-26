@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
 import '../pages/guest_number_form.dart';
 import '../pages/login_page.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
-  const Header({super.key, required this.loginStatus, required this.guestNumber});
+  const Header({super.key, required this.loginStatus, required this.guestNumber, required this.currentScreenId});
   final int loginStatus;
   final int guestNumber;
+  final int currentScreenId;
   final String title = 'Restaurant Talks Flutter';
 
   @override
@@ -16,6 +18,12 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       automaticallyImplyLeading: false,
+      leading: currentScreenId != itemIndex
+          ? IconButton(
+              onPressed: (){Navigator.of(context).pop();},
+              icon: Icon(Icons.arrow_back)
+            )
+          : null,
       title: Text(title),
       actions: [
         Padding(

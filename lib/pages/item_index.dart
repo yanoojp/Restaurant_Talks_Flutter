@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/api_keys.dart';
+import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
 import 'package:weather/weather.dart';
 import '../components/Header.dart';
 import '../components/bottom_navigation.dart';
@@ -8,7 +9,13 @@ import '../fixedDatas/fixed_expressions.dart';
 import 'item_form_page.dart';
 
 class ItemIndex extends StatefulWidget {
-  const ItemIndex({super.key, required this.loginStatus, required this.prefectureName, required this.guestNumber});
+  const ItemIndex({
+    super.key,
+    required this.loginStatus,
+    required this.prefectureName,
+    required this.guestNumber
+  });
+
   final int loginStatus;
   final String prefectureName;
   final int guestNumber;
@@ -18,6 +25,7 @@ class ItemIndex extends StatefulWidget {
 }
 
 class _ItemIndexState extends State<ItemIndex> {
+  final int currentScreenId = itemIndex;
 
   /// ** 天気情報の取得 ** //
   late String cityName;
@@ -47,7 +55,11 @@ class _ItemIndexState extends State<ItemIndex> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: Header(loginStatus: widget.loginStatus, guestNumber: widget.guestNumber),
+      appBar: Header(
+          loginStatus: widget.loginStatus,
+          guestNumber: widget.guestNumber,
+          currentScreenId: currentScreenId,
+      ),
       body: Column(
         children: [
           Container(
@@ -106,12 +118,21 @@ class _ItemIndexState extends State<ItemIndex> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ItemFormPage(title: title, loginStatus: widget.loginStatus, guestNumber: widget.guestNumber,)),
+            MaterialPageRoute(builder:
+                (context) => ItemFormPage(
+                  title: title,
+                  loginStatus: widget.loginStatus,
+                  guestNumber: widget.guestNumber,)
+            ),
           );
           print("新規追加ボタンが押されました");
         },
       ),
-      bottomNavigationBar: BottomNavigation(screenId: 0, loginStatus: widget.loginStatus, guestNumber: widget.guestNumber,),
+      bottomNavigationBar: BottomNavigation(
+        screenId: currentScreenId,
+        loginStatus: widget.loginStatus,
+        guestNumber: widget.guestNumber,
+      ),
     );
   }
 }

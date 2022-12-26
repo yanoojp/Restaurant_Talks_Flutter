@@ -4,8 +4,17 @@ import '../components/Header.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
+import '../fixedDatas/variables.dart';
+
 class ItemFormPage extends StatefulWidget {
-  const ItemFormPage({super.key, required this.title, this.itemObject, required this.loginStatus, required this.guestNumber});
+  const ItemFormPage({
+    super.key,
+    required this.title,
+    this.itemObject,
+    required this.loginStatus,
+    required this.guestNumber
+  });
+
   final String title;
   final int loginStatus;
   final int guestNumber;
@@ -17,16 +26,21 @@ class ItemFormPage extends StatefulWidget {
 
 class _ItemFormPageState extends State<ItemFormPage> {
   int _counter = 0;
+  final int currentScreenId = itemFormPage;
 
   final ImagePicker _picker = ImagePicker();
   File? _file;
 
   @override
   Widget build(BuildContext context) {
-    String itemName = widget.itemObject != null ? "${widget.itemObject['itemName']}" : '';
-    String itemStock = widget.itemObject != null ? "${widget.itemObject['itemStock']}" : '0';
-    String itemDetail = widget.itemObject != null ? "${widget.itemObject['itemDetail']}" : '';
-    String itemImage = widget.itemObject != null ? "${widget.itemObject['itemImage']}" : '';
+    String itemName =
+      widget.itemObject != null ? "${widget.itemObject['itemName']}" : '';
+    String itemStock =
+      widget.itemObject != null ? "${widget.itemObject['itemStock']}" : '0';
+    String itemDetail =
+      widget.itemObject != null ? "${widget.itemObject['itemDetail']}" : '';
+    String itemImage =
+      widget.itemObject != null ? "${widget.itemObject['itemImage']}" : '';
 
     void incrementCounter() {
       setState(() {
@@ -41,7 +55,11 @@ class _ItemFormPageState extends State<ItemFormPage> {
     }
 
     return Scaffold(
-        appBar: Header(loginStatus: widget.loginStatus, guestNumber: widget.guestNumber!,),
+        appBar: Header(
+          loginStatus: widget.loginStatus,
+          guestNumber: widget.guestNumber!,
+          currentScreenId: currentScreenId,
+        ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(

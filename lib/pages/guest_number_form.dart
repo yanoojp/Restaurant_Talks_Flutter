@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../components/Header.dart';
 import '../components/save_button_return_to_index.dart';
+import '../fixedDatas/variables.dart';
 
 class GuestNumberForm extends StatefulWidget {
   const GuestNumberForm({super.key, required this.guestNumber, required this.loginStatus,});
@@ -12,12 +14,18 @@ class GuestNumberForm extends StatefulWidget {
 }
 
 class _GuestNumberFormState extends State<GuestNumberForm> {
+  final int currentScreenId = guestNumberForm;
 
   @override
   Widget build(BuildContext context) {
     String guestNumber = widget.guestNumber.toString();
 
     return Scaffold(
+      appBar: Header(
+        loginStatus: widget.loginStatus,
+        guestNumber: widget.guestNumber,
+        currentScreenId: currentScreenId,
+      ),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
