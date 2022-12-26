@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:restaurant_talks_flutter/components/save_button_return_to_index.dart';
 import '../components/Header.dart';
-import 'item_index.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 class ItemFormPage extends StatefulWidget {
-  const ItemFormPage({super.key, required this.title, this.itemObject, required this.loginStatus});
+  const ItemFormPage({super.key, required this.title, this.itemObject, required this.loginStatus, required this.guestNumber});
   final String title;
   final int loginStatus;
+  final int guestNumber;
   final itemObject;
 
   @override
@@ -41,7 +41,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
     }
 
     return Scaffold(
-        appBar: Header(),
+        appBar: Header(loginStatus: widget.loginStatus, guestNumber: widget.guestNumber!,),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
@@ -97,19 +97,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
               //画像表示エリア
               if (_file != null && itemImage == '') Image.file(_file!, fit: BoxFit.cover,)
               else if (itemImage != '') Image.network(itemImage),
-              ElevatedButton(
-                onPressed: () {
-                  print("保存ボタンが押されました");
-                  print(itemName);
-                  print(itemStock);
-                  print(itemDetail);
-                  Navigator.push(
-                    context,
-                    PageTransition(type: PageTransitionType.leftToRight, child: ItemIndex(loginStatus: widget.loginStatus, prefectureName: '東京'))
-                  );
-                },
-                child: Text('保存する'),
-              ),
+              SaveButton(loginStatus: widget.loginStatus, guestNumber: widget.guestNumber,),
             ],
           ),
         ),

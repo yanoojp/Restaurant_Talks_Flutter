@@ -4,9 +4,10 @@ import 'package:restaurant_talks_flutter/pages/item_index.dart';
 import '../pages/chat_room.dart';
 
 class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({super.key, required this.screenId, required this.loginStatus});
+  const BottomNavigation({super.key, required this.screenId, required this.loginStatus, required this.guestNumber});
   final int screenId;
   final int loginStatus;
+  final int guestNumber;
 
   @override
   State<BottomNavigation> createState() => _BottomNavigationState();
@@ -26,12 +27,19 @@ class _BottomNavigationState extends State<BottomNavigation> {
         } else if (_selectedIndex == 0) {
           Navigator.push(
             context,
-            PageTransition(type: PageTransitionType.leftToRight, child: ItemIndex(loginStatus: widget.loginStatus, prefectureName: '東京'))
+            PageTransition(
+                type: PageTransitionType.leftToRight,
+                child: ItemIndex(
+                  loginStatus: widget.loginStatus,
+                  prefectureName: '東京',
+                  guestNumber: widget.guestNumber,
+                )
+            )
           );
         } else if (_selectedIndex == 1) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ChatRoom(loginStatus: widget.loginStatus,)),
+            MaterialPageRoute(builder: (context) => ChatRoom(loginStatus: widget.loginStatus, guestNumber: widget.guestNumber,)),
           );
         }
       });

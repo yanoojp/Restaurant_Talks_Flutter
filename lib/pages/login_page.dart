@@ -46,7 +46,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: Header(),
         body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Center(
@@ -97,7 +96,11 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ItemIndex(loginStatus: _selectedPositionValue, prefectureName: '東京',)),
+                          MaterialPageRoute(builder: (context) => ItemIndex(
+                            loginStatus: _selectedPositionValue,
+                            prefectureName: '東京',
+                            guestNumber: 10,)
+                          ),
                         );
                         print("Loginボタンが押されました");
                       },

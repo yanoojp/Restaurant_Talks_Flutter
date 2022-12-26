@@ -8,9 +8,10 @@ import '../fixedDatas/fixed_expressions.dart';
 import 'item_form_page.dart';
 
 class ItemIndex extends StatefulWidget {
-  const ItemIndex({super.key, required this.loginStatus, required this.prefectureName});
+  const ItemIndex({super.key, required this.loginStatus, required this.prefectureName, required this.guestNumber});
   final int loginStatus;
   final String prefectureName;
+  final int guestNumber;
 
   @override
   State<ItemIndex> createState() => _ItemIndexState();
@@ -46,7 +47,7 @@ class _ItemIndexState extends State<ItemIndex> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: const Header(),
+      appBar: Header(loginStatus: widget.loginStatus, guestNumber: widget.guestNumber),
       body: Column(
         children: [
           Container(
@@ -65,7 +66,8 @@ class _ItemIndexState extends State<ItemIndex> {
                             ItemFormPage(
                               title: title,
                               itemObject: items[i],
-                              loginStatus: widget.loginStatus,
+                              loginStatus: widget.loginStatus!,
+                              guestNumber: widget.guestNumber,
                             )),
                       );
                       print("${items[i]['itemName']}が押されました");
@@ -104,12 +106,12 @@ class _ItemIndexState extends State<ItemIndex> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ItemFormPage(title: title, loginStatus: widget.loginStatus,)),
+            MaterialPageRoute(builder: (context) => ItemFormPage(title: title, loginStatus: widget.loginStatus, guestNumber: widget.guestNumber,)),
           );
           print("新規追加ボタンが押されました");
         },
       ),
-      bottomNavigationBar: BottomNavigation(screenId: 0, loginStatus: widget.loginStatus),
+      bottomNavigationBar: BottomNavigation(screenId: 0, loginStatus: widget.loginStatus, guestNumber: widget.guestNumber,),
     );
   }
 }

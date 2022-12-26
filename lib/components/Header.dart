@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import '../pages/guest_number_form.dart';
 import '../pages/login_page.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
-  const Header({Key? key}) : super(key: key);
+  const Header({super.key, required this.loginStatus, required this.guestNumber});
+  final int loginStatus;
+  final int guestNumber;
   final String title = 'Restaurant Talks Flutter';
 
   @override
@@ -10,7 +13,6 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    int guestNumber = 10;
 
     return AppBar(
       automaticallyImplyLeading: false,
@@ -18,9 +20,17 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         Padding(
           padding: const EdgeInsets.only(top: 5.0, right: 15.0),
-          child: Text(
-            '残り\n$guestNumber',
-            textAlign: TextAlign.center,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => GuestNumberForm(guestNumber: guestNumber, loginStatus: loginStatus)),
+              );
+            },
+            child: Text(
+              '残り\n$guestNumber',
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
         IconButton(

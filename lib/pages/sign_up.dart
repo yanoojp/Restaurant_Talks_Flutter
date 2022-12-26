@@ -27,7 +27,6 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: Header(),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Center(
@@ -106,7 +105,9 @@ class _SignUpState extends State<SignUp> {
                             context,
                             MaterialPageRoute(builder: (context) => ItemIndex(
                                 loginStatus: _selectedPositionValue,
-                                prefectureName: selectedPrefectureValue)
+                                prefectureName: selectedPrefectureValue,
+                                guestNumber: 10
+                            ),
                             ),
                           );
                           print("SignUpボタンが押されました。県名：$selectedPrefectureValue");
