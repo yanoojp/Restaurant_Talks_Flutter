@@ -32,7 +32,11 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => GuestNumberForm(guestNumber: guestNumber, loginStatus: loginStatus)),
+                MaterialPageRoute(builder: (context) =>
+                    GuestNumberForm(
+                        guestNumber: guestNumber,
+                        loginStatus: loginStatus
+                    )),
               );
             },
             child: Text(

@@ -62,36 +62,43 @@ class _ItemIndexState extends State<ItemIndex> {
       ),
       body: Column(
         children: [
-          Container(
-            alignment: Alignment.topCenter,
-            height: MediaQuery.of(context).size.height / 100 * 67,
-            child: ButtonBar(
-              alignment: MainAxisAlignment.spaceAround,
-              children: [
-                for(int i = 0; i < items.length; i++) ... {
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(fixedSize: Size(100, 80)),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) =>
-                            ItemFormPage(
-                              title: title,
-                              itemObject: items[i],
-                              loginStatus: widget.loginStatus!,
-                              guestNumber: widget.guestNumber,
-                            )),
-                      );
-                      print("${items[i]['itemName']}が押されました");
-                    },
-                    child: Text("${items[i]['itemName']}"),
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Container(
+              height: MediaQuery.of(context).size.height / 100 * 66,
+              child: SingleChildScrollView(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Wrap(
+                    alignment: WrapAlignment.spaceEvenly,
+                    children: [
+                      for (int i = 0; i < items.length; i++) ... {
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(fixedSize: Size(100, 80)),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>
+                                  ItemFormPage(
+                                    title: title,
+                                    itemObject: items[i],
+                                    loginStatus: widget.loginStatus!,
+                                    guestNumber: widget.guestNumber,
+                                  )),
+                            );
+                            print("${items[i]['itemName']}が押されました");
+                          },
+                          child: Text("${items[i]['itemName']}"),
+                        ),
+                      }
+                    ],
                   ),
-                }
-              ],
+                ),
+              ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 25.0, left: 15.0),
+            padding: const EdgeInsets.only(top: 15.0, left: 15.0),
             child: Container(
               width: double.infinity,
               child: FutureBuilder(
