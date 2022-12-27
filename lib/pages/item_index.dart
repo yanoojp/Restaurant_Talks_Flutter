@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_talks_flutter/fixedDatas/api_keys.dart';
+import 'package:restaurant_talks_flutter/components/weather_area.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
-import 'package:weather/weather.dart';
 import '../components/Header.dart';
 import '../components/bottom_navigation.dart';
 import '../fixedDatas/datas.dart';
@@ -27,33 +26,8 @@ class ItemIndex extends StatefulWidget {
 class _ItemIndexState extends State<ItemIndex> {
   final int currentScreenId = itemIndex;
 
-  /// ** 天気情報の取得 ** //
-  late String cityName;
-  WeatherFactory wf = WeatherFactory(weatherApiKey, language: Language.JAPANESE);
-  String currentWeather = '';
-  late Future<String> cw;
-
-  Future<String> getCurrentLocationWeather(String cityName) async {
-    Weather w = await wf.currentWeatherByCityName(cityName);
-    return w.weatherDescription!;
-  }
-  /// ** 天気情報の取得 ** //
-
-  @override
-  void initState() {
-    super.initState();
-
-    // 天気のセット
-    cityName = widget.prefectureName;
-    cw = getCurrentLocationWeather(cityName);
-    cw.then((value) => {
-      currentWeather = value,
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: Header(
           loginStatus: widget.loginStatus,
@@ -97,27 +71,7 @@ class _ItemIndexState extends State<ItemIndex> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 15.0, left: 15.0),
-            child: Container(
-              width: double.infinity,
-              child: FutureBuilder(
-                  future: cw,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      // アイコンの表示はTodo
-                      return Text(
-                        '外の天気：$currentWeather',
-                        style: const TextStyle(
-                        ),
-                      );
-                    } else {
-                      return const Text("'外の天気：データ取得中...");
-                    }
-                  }
-              ),
-            ),
-          ),
+          WeatherArea(prefectureName: widget.prefectureName),
         ],
       ),
       floatingActionButton: FloatingActionButton(
