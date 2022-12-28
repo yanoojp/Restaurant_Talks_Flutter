@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/components/weather_area.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
-import '../components/Header.dart';
+import '../components/header.dart';
 import '../components/bottom_navigation.dart';
 import '../fixedDatas/datas.dart';
-import '../fixedDatas/fixed_expressions.dart';
 import 'item_form_page.dart';
 
 class ItemIndex extends StatefulWidget {
@@ -24,7 +23,7 @@ class ItemIndex extends StatefulWidget {
 }
 
 class _ItemIndexState extends State<ItemIndex> {
-  final int currentScreenId = itemIndex;
+  final int currentScreenId = itemIndexId;
 
   @override
   Widget build(BuildContext context) {

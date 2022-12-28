@@ -5,7 +5,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
 
-import '../components/Header.dart';
+import '../components/header.dart';
 import '../components/bottom_navigation.dart';
 
 String randomString() {
@@ -14,18 +14,18 @@ String randomString() {
   return base64UrlEncode(values);
 }
 
-class ChatRoom extends StatefulWidget {
+class ChatScreen extends StatefulWidget {
   // キッチン、ホールでチャット画面を切り替えるためのloginStatusは各画面から送ってあります。
-  const ChatRoom({super.key, required this.loginStatus, required this.guestNumber});
+  const ChatScreen({super.key, required this.loginStatus, required this.guestNumber});
   final int loginStatus;
   final int guestNumber;
 
   @override
-  ChatRoomState createState() => ChatRoomState();
+  ChatScreenState createState() => ChatScreenState();
 }
 
-class ChatRoomState extends State<ChatRoom> {
-  final int currentScreenId = chatRoom;
+class ChatScreenState extends State<ChatScreen> {
+  final int currentScreenId = chatScreenId;
 
   final List<types.Message> _messages = [];
   final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
