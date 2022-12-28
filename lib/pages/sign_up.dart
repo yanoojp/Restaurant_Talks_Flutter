@@ -89,7 +89,7 @@ class _SignUpState extends State<SignUp> {
                 Container(
                   padding: const EdgeInsets.only(top: 20),
                   width: double.infinity,
-                  child: Text(
+                  child: const Text(
                     nameOfRepresentativeLabel,
                     textAlign: TextAlign.left,
                   ),
@@ -107,7 +107,7 @@ class _SignUpState extends State<SignUp> {
                     children: [
                       Container(
                           width: 115,
-                          child: Text(choosePosition, textAlign: TextAlign.center,)
+                          child: const Text(choosePosition, textAlign: TextAlign.center,)
                       ),
                       DropdownButton(
                         items: positions.map((list) => DropdownMenuItem(

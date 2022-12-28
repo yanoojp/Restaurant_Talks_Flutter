@@ -33,3 +33,9 @@ const String nameOfRepresentativeLabel = '代表者名';
 // ドロップダウンボックス
 const String choosePrefecture = '都道府県を選択';
 const String choosePosition = 'ポジションを選択';
+const String kitchen = 'キッチン';
+const String hall = 'ホール';
+const String appetizerLabel = '前菜';
+const String sortByCategoryLabel = 'カテゴリーで絞る';
+const String mainDishLabel = 'メインディッシュ';
+const String beverageLabel = 'ビバレージ';

@@ -32,11 +32,11 @@ class _LoginPageState extends State<LoginPage> {
   void setItems() {
     _items
       ..add(const DropdownMenuItem(
-        child: Text('キッチン',),
+        child: Text(kitchen),
         value: 1,
       ))
       ..add(const DropdownMenuItem(
-        child: Text('ホール',),
+        child: Text(hall),
         value: 2,
       ));
   }
@@ -61,16 +61,16 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Container(
                 width: double.infinity,
-                child: Text(
+                child: const Text(
                   emailLabel,
                   textAlign: TextAlign.left,
                 ),
               ),
               const TextField(),
               Container(
-                padding: EdgeInsets.only(top: 20.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 width: double.infinity,
-                child: Text(
+                child: const Text(
                   passwordLabel,
                   textAlign: TextAlign.left,
                 ),
@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Container(
                         width: 115,
-                        child: Text(choosePosition, textAlign: TextAlign.center,)
+                        child: const Text(choosePosition, textAlign: TextAlign.center,)
                     ),
                     DropdownButton(
                       items: _items,
