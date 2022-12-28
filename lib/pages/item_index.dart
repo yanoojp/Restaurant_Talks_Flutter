@@ -24,6 +24,28 @@ class ItemIndex extends StatefulWidget {
 
 class _ItemIndexState extends State<ItemIndex> {
   final int currentScreenId = itemIndexId;
+  String _selectedCategoryValue = 'appetizer';
+
+  var items = itemsArray;
+
+  // カテゴリーソートはflutter連携時にやると良さそうなので、保留
+  // List<Map<String, Object>> getItems() {
+  //   if (_selectedCategoryValue == appetizerLabel) {
+  //     items = items.where('category', isEqualTo: appetizerLabel) as List<Map<String, Object>>;
+  //   } else if (_selectedCategoryValue == mainDishLabel) {
+  //     items = items.where('category', isEqualTo: mainDishLabel);
+  //   } else if (_selectedCategoryValue == beverageLabel) {
+  //     items = items.where('category', isEqualTo: beverageLabel);
+  //   }
+  //
+  //   return items;
+  // }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedCategoryValue = categories[0];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +57,23 @@ class _ItemIndexState extends State<ItemIndex> {
       ),
       body: Column(
         children: [
+          DropdownButton(
+            items: categories
+                .map((category) => DropdownMenuItem(
+                value: category,
+                child: Text(category)
+            )).toList(),
+            value: _selectedCategoryValue,
+            onChanged: (value) => {
+              setState(() {
+                _selectedCategoryValue = value!;
+              }),
+            },
+          ),
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: Container(
-              height: MediaQuery.of(context).size.height / 100 * 66,
+              height: MediaQuery.of(context).size.height / 100 * 60,
               child: SingleChildScrollView(
                 child: Container(
                   width: MediaQuery.of(context).size.width,

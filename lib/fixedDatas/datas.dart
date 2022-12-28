@@ -1,3 +1,5 @@
+import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
+
 var user = {
   'id': 1,
   'email': 'email@email.com',
@@ -6,7 +8,7 @@ var user = {
   'prefecture': 'Tokyo',
 };
 
-var items = [
+var itemsArray = [
   {
     'itemName': "サーモンマリネ",
     'itemStock': 1,
@@ -411,4 +413,11 @@ final positions = [
     "positionName": "ホール"
   }
   ,
+];
+
+List<String> categories = [
+  sortByCategoryLabel,
+  appetizerLabel,
+  mainDishLabel,
+  beverageLabel
 ];
