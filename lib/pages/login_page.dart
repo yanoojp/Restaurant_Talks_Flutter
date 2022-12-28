@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/pages/item_index.dart';
 import 'package:restaurant_talks_flutter/pages/sign_up.dart';
-import 'package:weather/weather.dart';
 
-import '../components/Header.dart';
-import '../fixedDatas/api_keys.dart';
+import '../fixedDatas/variables.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -55,44 +53,57 @@ class _LoginPageState extends State<LoginPage> {
               const Padding(
                 padding: EdgeInsets.only(bottom: 20.0),
                 child: Text(
-                  'ログイン画面',
-                ),
-              ),
-              const TextField(
-                decoration: InputDecoration(
-                    hintText: 'メールアドレス'
-                ),
-              ),
-              const TextField(
-                decoration: InputDecoration(
-                    hintText: 'パスワード'
-                ),
-              ),
-              /* ポジション選択ドロップダウン　*/
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                      width: 115,
-                      child: Text('ポジションを選択', textAlign: TextAlign.center,)
+                  loginScreen,
+                  style: TextStyle(
+                    fontSize: titleFontSize,
                   ),
-                  DropdownButton(
-                    items: _items,
-                    value: _selectedPositionValue,
-                    onChanged: (value) => {
-                      setState(() {
-                        _selectedPositionValue = value!;
-                      }),
-                    },
-                  )
-                ],
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                child: Text(
+                  emailLabel,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              const TextField(),
+              Container(
+                padding: EdgeInsets.only(top: 20.0),
+                width: double.infinity,
+                child: Text(
+                  passwordLabel,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              const TextField(),
+              /* ポジション選択ドロップダウン　*/
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                        width: 115,
+                        child: Text(choosePosition, textAlign: TextAlign.center,)
+                    ),
+                    DropdownButton(
+                      items: _items,
+                      value: _selectedPositionValue,
+                      onChanged: (value) => {
+                        setState(() {
+                          _selectedPositionValue = value!;
+                        }),
+                      },
+                    )
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Column(
                   children: [
                     ElevatedButton(
-                      child: const Text('Login'),
+                      child: const Text(loginButton),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -102,17 +113,15 @@ class _LoginPageState extends State<LoginPage> {
                             guestNumber: 10,)
                           ),
                         );
-                        print("Loginボタンが押されました");
                       },
                     ),
                     ElevatedButton(
-                      child: const Text('サインアップ画面へ'),
+                      child: const Text(toSignUpScreen),
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => SignUp()),
                         );
-                        print("ログイン画面へボタンが押されました");
                       },
                     ),
                   ],

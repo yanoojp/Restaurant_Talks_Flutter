@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../components/Header.dart';
+import '../components/header.dart';
 import '../components/save_button_return_to_index.dart';
 import '../fixedDatas/variables.dart';
 
@@ -14,7 +14,7 @@ class GuestNumberForm extends StatefulWidget {
 }
 
 class _GuestNumberFormState extends State<GuestNumberForm> {
-  final int currentScreenId = guestNumberForm;
+  final int currentScreenId = guestNumberFormId;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _GuestNumberFormState extends State<GuestNumberForm> {
             const Text(
               '朝食の残り人数',
               style: TextStyle(
-                fontSize: 25,
+                fontSize: titleFontSize,
                 color: Colors.black,
                 decoration: TextDecoration.none
               ),

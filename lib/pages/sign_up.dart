@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/pages/login_page.dart';
-import '../components/Header.dart';
 import '../fixedDatas/datas.dart';
+import '../fixedDatas/variables.dart';
 import 'item_index.dart';
 
 class SignUp extends StatefulWidget {
@@ -14,6 +14,12 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   late int _selectedPositionValue;
   late String selectedPrefectureValue;
+
+  late String email;
+  late String password;
+  late String hotelName;
+  late String nameOfRepresentative;
+
 
   @override
   void initState() {
@@ -34,42 +40,89 @@ class _SignUpState extends State<SignUp> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Padding(
-                  padding: EdgeInsets.only(bottom: 20.0),
+                  padding: EdgeInsets.only(bottom: 30.0),
                   child: Text(
-                    'サインアップ画面',
+                    signUpScreen,
+                    style: TextStyle(
+                      fontSize: titleFontSize,
+                    ),
                   ),
                 ),
-                const TextField(
-                  decoration: InputDecoration(
-                      hintText: 'メールアドレス'
+                Container(
+                  width: double.infinity,
+                  child: Text(
+                    emailLabel,
+                    textAlign: TextAlign.left,
                   ),
                 ),
-                const TextField(
-                  decoration: InputDecoration(
-                      hintText: 'パスワード'
+                TextField(
+                  onChanged: (text) {
+                    email = text;
+                  },
+                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 20),
+                  width: double.infinity,
+                  child: Text(
+                    passwordLabel,
+                    textAlign: TextAlign.left,
                   ),
+                ),
+                TextField(
+                  onChanged: (text) {
+                   password = text;
+                  },
+                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 20),
+                  width: double.infinity,
+                  child: Text(
+                    hotelNameLabel,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                TextField(
+                  onChanged: (text) {
+                   hotelName = text;
+                  },
+                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 20),
+                  width: double.infinity,
+                  child: Text(
+                    nameOfRepresentativeLabel,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                TextField(
+                  onChanged: (text) {
+                   nameOfRepresentative = text;
+                  },
                 ),
                 /* ポジション選択ドロップダウン　*/
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                        width: 115,
-                        child: Text('ポジションを選択', textAlign: TextAlign.center,)
-                    ),
-                    DropdownButton(
-                      items: positions.map((list) => DropdownMenuItem(
-                                value: list['positionId'],
-                                child: Text(list['positionName'] as String)
-                              )).toList(),
-                      value: _selectedPositionValue,
-                      onChanged: (value) => {
-                        setState(() {
-                          _selectedPositionValue = value as int;
-                        }),
-                      },
-                    )
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                          width: 115,
+                          child: Text(choosePosition, textAlign: TextAlign.center,)
+                      ),
+                      DropdownButton(
+                        items: positions.map((list) => DropdownMenuItem(
+                                  value: list['positionId'],
+                                  child: Text(list['positionName'] as String)
+                                )).toList(),
+                        value: _selectedPositionValue,
+                        onChanged: (value) => {
+                          setState(() {
+                            _selectedPositionValue = value as int;
+                          }),
+                        },
+                      )
+                    ],
+                  ),
                 ),
                 /* 都道府県選択ドロップダウン　*/
                 Row(
@@ -77,7 +130,7 @@ class _SignUpState extends State<SignUp> {
                   children: [
                     Container(
                         width: 115,
-                        child: Text('都道府県を選択', textAlign: TextAlign.center,)
+                        child: Text(choosePrefecture, textAlign: TextAlign.center,)
                     ),
                     DropdownButton(
                         items: prefectures
@@ -99,29 +152,30 @@ class _SignUpState extends State<SignUp> {
                   child: Column(
                     children: [
                       ElevatedButton(
-                        child: const Text('Sign Up'),
+                        child: const Text(signUButton),
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => ItemIndex(
-                                loginStatus: _selectedPositionValue,
-                                prefectureName: selectedPrefectureValue,
-                                guestNumber: 10
+                              loginStatus: _selectedPositionValue,
+                              prefectureName: selectedPrefectureValue,
+                              guestNumber: 10
                             ),
                             ),
                           );
-                          print("SignUpボタンが押されました。県名：$selectedPrefectureValue");
                         },
                       ),
-                      ElevatedButton(
-                        child: const Text('ログイン画面へ'),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => LoginPage()),
-                          );
-                          print("Login画面へボタンが押されました");
-                        },
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: ElevatedButton(
+                          child: const Text(toLoginScreen),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => LoginPage()),
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),

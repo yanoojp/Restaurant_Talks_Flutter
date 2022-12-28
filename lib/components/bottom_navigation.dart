@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:restaurant_talks_flutter/pages/item_index.dart';
-import '../pages/chat_room.dart';
+import 'package:restaurant_talks_flutter/pages/my_page_screen.dart';
+import '../fixedDatas/variables.dart';
+import '../pages/chat_screen.dart';
 
 class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({super.key, required this.screenId, required this.loginStatus, required this.guestNumber});
+  const BottomNavigation({
+    super.key,
+    required this.screenId,
+    required this.loginStatus,
+    required this.guestNumber
+  });
+
   final int screenId;
   final int loginStatus;
   final int guestNumber;
@@ -16,15 +24,15 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
-    int _selectedIndex = widget.screenId;
+    int selectedIndex = widget.screenId;
 
     void _onItemTapped(int index) {
       setState(() {
-        _selectedIndex = index;
+        selectedIndex = index;
 
-        if (_selectedIndex == widget.screenId) {
+        if (selectedIndex == widget.screenId) {
           return;
-        } else if (_selectedIndex == 0) {
+        } else if (selectedIndex == itemIndexId) {
           Navigator.push(
             context,
             PageTransition(
@@ -36,26 +44,45 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 )
             )
           );
-        } else if (_selectedIndex == 1) {
+        } else if (selectedIndex == chatScreenId) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ChatRoom(loginStatus: widget.loginStatus, guestNumber: widget.guestNumber,)),
+            MaterialPageRoute(builder: (context) =>
+                ChatScreen(
+                  loginStatus: widget.loginStatus,
+                  guestNumber: widget.guestNumber,
+                )
+            ),
+          );
+        } else if (selectedIndex == myPageId) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>
+                MyPageScreen(
+                  loginStatus: widget.loginStatus,
+                  guestNumber: widget.guestNumber,
+                )
+            ),
           );
         }
       });
     }
 
     return BottomNavigationBar(
-      currentIndex: _selectedIndex,
+      currentIndex: selectedIndex,
       onTap: _onItemTapped,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          label: 'アイテム一覧',
+          label: itemIndexScreen,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.message),
-          label: 'チャット',
+          label: chatScreen,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.account_circle),
+          label: myPageScreen,
         ),
       ],
       type: BottomNavigationBarType.fixed,

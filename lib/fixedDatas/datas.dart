@@ -1,363 +1,354 @@
+var user = {
+  'id': 1,
+  'email': 'email@email.com',
+  'hotelName': 'Ritz Carlton',
+  'nameOfRepresentative': 'Yamada Taro',
+  'prefecture': 'Tokyo',
+};
+
 var items = [
   {
     'itemName': "サーモンマリネ",
     'itemStock': 1,
     'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "タコのカルパッチョ",
     'itemStock': 2,
     'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "スパニッシュオムレツ",
     'itemStock': 3,
     'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "サーモンマリネ",
     'itemStock': 1,
     'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "タコのカルパッチョ",
     'itemStock': 2,
     'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "スパニッシュオムレツ",
     'itemStock': 3,
     'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "サーモンマリネ",
     'itemStock': 1,
     'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "タコのカルパッチョ",
     'itemStock': 2,
     'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "スパニッシュオムレツ",
     'itemStock': 3,
     'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "サーモンマリネ",
     'itemStock': 1,
     'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "タコのカルパッチョ",
     'itemStock': 2,
     'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "スパニッシュオムレツ",
     'itemStock': 3,
     'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "サーモンマリネ",
     'itemStock': 1,
     'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "タコのカルパッチョ",
     'itemStock': 2,
     'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "スパニッシュオムレツ",
     'itemStock': 3,
     'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },{
     'itemName': "サーモンマリネ",
     'itemStock': 1,
     'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "タコのカルパッチョ",
     'itemStock': 2,
     'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "スパニッシュオムレツ",
     'itemStock': 3,
     'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "サーモンマリネ",
     'itemStock': 1,
     'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "タコのカルパッチョ",
     'itemStock': 2,
     'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "スパニッシュオムレツ",
     'itemStock': 3,
     'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "サーモンマリネ",
     'itemStock': 1,
     'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "タコのカルパッチョ",
     'itemStock': 2,
     'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "スパニッシュオムレツ",
     'itemStock': 3,
     'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "サーモンマリネ",
     'itemStock': 1,
     'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "タコのカルパッチョ",
     'itemStock': 2,
     'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "スパニッシュオムレツ",
     'itemStock': 3,
     'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
     'itemName': "サーモンマリネ",
     'itemStock': 1,
     'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'appetizer'
   },
   {
-    'itemName': "タコのカルパッチョ",
-    'itemStock': 2,
-    'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-  },
-  {
-    'itemName': "スパニッシュオムレツ",
-    'itemStock': 3,
-    'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-  },
-  {
-    'itemName': "サーモンマリネ",
+    'itemName': "ビーフステーキ",
     'itemStock': 1,
-    'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "ビーフステーキビーフステーキビーフステーキビーフステーキ",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'mainDish'
   },
   {
-    'itemName': "タコのカルパッチョ",
+    'itemName': "パスタ",
     'itemStock': 2,
-    'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "パスタパスタパスタパスタパスタ",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'mainDish'
   },
   {
-    'itemName': "スパニッシュオムレツ",
+    'itemName': "魚料理",
     'itemStock': 3,
-    'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "魚料理魚料理魚料理魚料理魚料理",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'mainDish'
   },
   {
-    'itemName': "サーモンマリネ",
+  'itemName': "ビーフステーキ",
+  'itemStock': 1,
+  'itemDetail': "ビーフステーキビーフステーキビーフステーキビーフステーキ",
+  'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+  'category': 'mainDish'
+  },
+  {
+  'itemName': "パスタ",
+  'itemStock': 2,
+  'itemDetail': "パスタパスタパスタパスタパスタ",
+  'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+  'category': 'mainDish'
+  },
+  {
+  'itemName': "魚料理",
+  'itemStock': 3,
+  'itemDetail': "魚料理魚料理魚料理魚料理魚料理",
+  'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+  'category': 'mainDish'
+  },
+  {
+    'itemName': "ビーフステーキ",
     'itemStock': 1,
-    'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "ビーフステーキビーフステーキビーフステーキビーフステーキ",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'mainDish'
   },
   {
-    'itemName': "タコのカルパッチョ",
+    'itemName': "パスタ",
     'itemStock': 2,
-    'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "パスタパスタパスタパスタパスタ",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'mainDish'
   },
   {
-    'itemName': "スパニッシュオムレツ",
+    'itemName': "魚料理",
     'itemStock': 3,
-    'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "魚料理魚料理魚料理魚料理魚料理",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'mainDish'
   },
   {
-    'itemName': "サーモンマリネ",
+    'itemName': "オレンジジュース",
     'itemStock': 1,
-    'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "オレンジジュースオレンジジュースオレンジジュースオレンジジュースオレンジジュース",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'beverage'
   },
   {
-    'itemName': "タコのカルパッチョ",
+    'itemName': "リンゴジュース",
     'itemStock': 2,
-    'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "リンゴジュースリンゴジュースリンゴジュースリンゴジュース",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'beverage'
   },
   {
-    'itemName': "スパニッシュオムレツ",
+    'itemName': "トマトジュース",
     'itemStock': 3,
-    'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "トマトジューストマトジューストマトジューストマトジュース",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'beverage'
   },
   {
-    'itemName': "サーモンマリネ",
+    'itemName': "オレンジジュース",
     'itemStock': 1,
-    'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "オレンジジュースオレンジジュースオレンジジュースオレンジジュースオレンジジュース",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'beverage'
   },
   {
-    'itemName': "タコのカルパッチョ",
+    'itemName': "リンゴジュース",
     'itemStock': 2,
-    'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "リンゴジュースリンゴジュースリンゴジュースリンゴジュース",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'beverage'
   },
   {
-    'itemName': "スパニッシュオムレツ",
+    'itemName': "トマトジュース",
     'itemStock': 3,
-    'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "トマトジューストマトジューストマトジューストマトジュース",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'beverage'
   },
   {
-    'itemName': "サーモンマリネ",
+    'itemName': "オレンジジュース",
     'itemStock': 1,
-    'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "オレンジジュースオレンジジュースオレンジジュースオレンジジュースオレンジジュース",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'beverage'
   },
   {
-    'itemName': "タコのカルパッチョ",
+    'itemName': "リンゴジュース",
     'itemStock': 2,
-    'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "リンゴジュースリンゴジュースリンゴジュースリンゴジュース",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'beverage'
   },
   {
-    'itemName': "スパニッシュオムレツ",
+    'itemName': "トマトジュース",
     'itemStock': 3,
-    'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "トマトジューストマトジューストマトジューストマトジュース",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'beverage'
   },
   {
-    'itemName': "サーモンマリネ",
+    'itemName': "オレンジジュース",
     'itemStock': 1,
-    'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "オレンジジュースオレンジジュースオレンジジュースオレンジジュースオレンジジュース",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'beverage'
   },
   {
-    'itemName': "タコのカルパッチョ",
+    'itemName': "リンゴジュース",
     'itemStock': 2,
-    'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
+    'itemDetail': "リンゴジュースリンゴジュースリンゴジュースリンゴジュース",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'beverage'
   },
   {
-    'itemName': "スパニッシュオムレツ",
+    'itemName': "トマトジュース",
     'itemStock': 3,
-    'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-  },
-  {
-    'itemName': "サーモンマリネ",
-    'itemStock': 1,
-    'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-  },
-  {
-    'itemName': "タコのカルパッチョ",
-    'itemStock': 2,
-    'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-  },
-  {
-    'itemName': "スパニッシュオムレツ",
-    'itemStock': 3,
-    'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-  },
-  {
-    'itemName': "サーモンマリネ",
-    'itemStock': 1,
-    'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-  },
-  {
-    'itemName': "タコのカルパッチョ",
-    'itemStock': 2,
-    'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-  },
-  {
-    'itemName': "スパニッシュオムレツ",
-    'itemStock': 3,
-    'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-  },
-  {
-    'itemName': "サーモンマリネ",
-    'itemStock': 1,
-    'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-  },
-  {
-    'itemName': "タコのカルパッチョ",
-    'itemStock': 2,
-    'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-  },
-  {
-    'itemName': "スパニッシュオムレツ",
-    'itemStock': 3,
-    'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-  },
-  {
-    'itemName': "サーモンマリネ",
-    'itemStock': 1,
-    'itemDetail': "サーモンマリネサーモンマリネサーモンマリネ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-  },
-  {
-    'itemName': "タコのカルパッチョ",
-    'itemStock': 2,
-    'itemDetail': "タコのカルパッチョタコのカルパッチョタコのカルパッチョ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-  },
-  {
-    'itemName': "スパニッシュオムレツ",
-    'itemStock': 3,
-    'itemDetail': "スパニッシュオムレツスパニッシュオムレツスパニッシュオムレツ",
-    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'
-  },
+    'itemDetail': "トマトジューストマトジューストマトジューストマトジュース",
+    'itemImage': 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+    'category': 'beverage'
+  }
 ];
 
 final prefectures = [

@@ -18,7 +18,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       automaticallyImplyLeading: false,
-      leading: currentScreenId != itemIndex
+      leading: currentScreenId != itemIndexId
           ? IconButton(
               onPressed: (){Navigator.of(context).pop();},
               icon: Icon(Icons.arrow_back)
