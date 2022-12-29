@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
+import '../components/bottom_navigation.dart';
 import '../components/header.dart';
 import '../components/save_button_return_to_index.dart';
 import '../fixedDatas/datas.dart';
@@ -109,6 +110,11 @@ class _MyPageState extends State<MyPageScreen> {
             SaveButton(loginStatus: widget.loginStatus, guestNumber: widget.guestNumber,),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigation(
+        screenId: currentScreenId,
+        loginStatus: widget.loginStatus,
+        guestNumber: widget.guestNumber,
       ),
     );
   }

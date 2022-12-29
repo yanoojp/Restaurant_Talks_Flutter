@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_talks_flutter/components/form_with_label_for_login.dart';
 import 'package:restaurant_talks_flutter/pages/item_index.dart';
 import 'package:restaurant_talks_flutter/pages/sign_up.dart';
 
@@ -59,23 +60,11 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              Container(
-                width: double.infinity,
-                child: const Text(
-                  emailLabel,
-                  textAlign: TextAlign.left,
-                ),
+              FormWithLabelForLogin(labelText: emailLabel,),
+              const Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: FormWithLabelForLogin(labelText: passwordLabel,),
               ),
-              const TextField(),
-              Container(
-                padding: const EdgeInsets.only(top: 20.0),
-                width: double.infinity,
-                child: const Text(
-                  passwordLabel,
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              const TextField(),
               /* ポジション選択ドロップダウン　*/
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),

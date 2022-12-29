@@ -29,6 +29,10 @@ const String emailLabel = 'メールアドレス';
 const String passwordLabel = 'パスワード';
 const String hotelNameLabel = 'ホテル名';
 const String nameOfRepresentativeLabel = '代表者名';
+const String guestNumberLabel = '朝食の残り人数';
+const String peopleUnit = '名';
+const String leftNumber = '残り';
+
 
 // ドロップダウンボックス
 const String choosePrefecture = '都道府県を選択';

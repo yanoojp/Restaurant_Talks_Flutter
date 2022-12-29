@@ -31,7 +31,7 @@ class _GuestNumberFormState extends State<GuestNumberForm> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
-              '朝食の残り人数',
+              guestNumberLabel,
               style: TextStyle(
                 fontSize: titleFontSize,
                 color: Colors.black,
@@ -50,7 +50,7 @@ class _GuestNumberFormState extends State<GuestNumberForm> {
                         keyboardType: TextInputType.number,
                         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         style: const TextStyle(
-                          fontSize: 30,
+                          fontSize: titleFontSize + 30,
                         ),
                         decoration: InputDecoration(
                           hintText: (widget.guestNumber).toString(),
@@ -64,9 +64,9 @@ class _GuestNumberFormState extends State<GuestNumberForm> {
                   const Padding(
                     padding: EdgeInsets.only(left: 10.0),
                     child: Text(
-                      '名',
+                      peopleUnit,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: titleFontSize,
                       ),
                     ),
                   ),

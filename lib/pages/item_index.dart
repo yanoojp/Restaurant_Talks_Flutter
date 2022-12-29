@@ -94,7 +94,6 @@ class _ItemIndexState extends State<ItemIndex> {
                                     guestNumber: widget.guestNumber,
                                   )),
                             );
-                            print("${items[i]['itemName']}が押されました");
                           },
                           child: Text("${items[i]['itemName']}"),
                         ),
@@ -120,7 +119,6 @@ class _ItemIndexState extends State<ItemIndex> {
                   guestNumber: widget.guestNumber,)
             ),
           );
-          print("新規追加ボタンが押されました");
         },
       ),
       bottomNavigationBar: BottomNavigation(

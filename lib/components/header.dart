@@ -4,7 +4,13 @@ import '../pages/guest_number_form.dart';
 import '../pages/login_page.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
-  const Header({super.key, required this.loginStatus, required this.guestNumber, required this.currentScreenId});
+  const Header({
+    super.key,
+    required this.loginStatus,
+    required this.guestNumber,
+    required this.currentScreenId
+  });
+
   final int loginStatus;
   final int guestNumber;
   final int currentScreenId;
@@ -18,10 +24,10 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       automaticallyImplyLeading: false,
-      leading: currentScreenId != itemIndexId
+      leading: currentScreenId != itemIndexId | myPageId
           ? IconButton(
               onPressed: (){Navigator.of(context).pop();},
-              icon: Icon(Icons.arrow_back)
+              icon: const Icon(Icons.arrow_back)
             )
           : null,
       title: Text(title),
@@ -40,19 +46,18 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
               );
             },
             child: Text(
-              '残り\n$guestNumber',
+              '$leftNumber\n$guestNumber',
               textAlign: TextAlign.center,
             ),
           ),
         ),
         IconButton(
-          icon: Icon(Icons.logout),
+          icon: const Icon(Icons.logout),
           onPressed: () => {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => LoginPage()),
             ),
-            print("ログアウトボタンが押されました")
           },
         ),
       ],
