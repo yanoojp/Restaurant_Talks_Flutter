@@ -116,7 +116,9 @@ class _ItemIndexState extends State<ItemIndex> {
                 (context) => ItemFormPage(
                   title: title,
                   loginStatus: widget.loginStatus,
-                  guestNumber: widget.guestNumber,)
+                  guestNumber: widget.guestNumber,
+
+                )
             ),
           );
         },
