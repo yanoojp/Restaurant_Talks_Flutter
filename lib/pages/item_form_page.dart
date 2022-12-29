@@ -3,7 +3,6 @@ import 'package:restaurant_talks_flutter/components/save_button_return_to_index.
 import '../components/header.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-
 import '../fixedDatas/variables.dart';
 
 class ItemFormPage extends StatefulWidget {
@@ -67,7 +66,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
               children: [
                 Container(
                   width: double.infinity,
-                  child: Text(
+                  child: const Text(
                     itemNameLabel,
                     textAlign: TextAlign.left,
                   ),
@@ -85,7 +84,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                     Container(
                       padding: const EdgeInsets.only(top: 30.0, bottom: 5.0),
                       width: double.infinity,
-                      child: Text(
+                      child: const Text(
                         itemStockLabel,
                         textAlign: TextAlign.left,
                       ),
@@ -97,7 +96,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                           heroTag: "btn1",
                           onPressed: decrementCounter,
                           tooltip: 'Decrement',
-                          child: Icon(Icons.remove),
+                          child: const Icon(Icons.remove),
                         ),
                         Text(
                             (_counter + int.parse(itemStock)).toString(),
@@ -107,7 +106,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                           heroTag: "btn2",
                           onPressed: incrementCounter,
                           tooltip: 'Increment',
-                          child: Icon(Icons.add),
+                          child: const Icon(Icons.add),
                         ),
                       ],
                     ),
@@ -116,7 +115,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                 Container(
                   padding: const EdgeInsets.only(top: 30.0),
                   width: double.infinity,
-                  child: Text(
+                  child: const Text(
                     itemDetailLabel,
                     textAlign: TextAlign.left,
                   ),
@@ -132,7 +131,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                 Container(
                   padding: const EdgeInsets.only(top: 30.0),
                   width: double.infinity,
-                  child: Text(
+                  child: const Text(
                     itemImageLabel,
                     textAlign: TextAlign.left,
                   ),
@@ -141,16 +140,19 @@ class _ItemFormPageState extends State<ItemFormPage> {
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: OutlinedButton(
                       onPressed: () async {
-                        final XFile? _image = await _picker.pickImage(source: ImageSource.gallery);
-                        _file = File(_image!.path);
+                        final XFile? image =
+                          await _picker.pickImage(source: ImageSource.gallery);
+                        _file = File(image!.path);
                         setState(() {});
                       },
                       child: const Text('画像を選択')
                   ),
                 ),
                 //画像表示エリア
-                if (_file != null && itemImage == '') Image.file(_file!, fit: BoxFit.cover,)
-                else if (itemImage != '') Image.network(itemImage),
+                if (_file != null && itemImage == '')
+                  Image.file(_file!, fit: BoxFit.cover,)
+                else if (itemImage != '')
+                  Image.network(itemImage),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: SaveButton(loginStatus: widget.loginStatus, guestNumber: widget.guestNumber,),
