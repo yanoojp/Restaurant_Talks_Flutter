@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
 import '../pages/guest_number_form.dart';
 import '../pages/login_page.dart';
@@ -25,7 +26,8 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       automaticallyImplyLeading: false,
-      leading: currentScreenId == itemFormPageId || currentScreenId == guestNumberFormId
+      leading:
+        currentScreenId == itemFormPageId || currentScreenId == guestNumberFormId
           ? IconButton(
               onPressed: (){Navigator.of(context).pop();},
               icon: const Icon(Icons.arrow_back)
@@ -57,7 +59,11 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () => {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => LoginPage()),
+              PageTransition(
+                type: PageTransitionType.leftToRight,
+                child: LoginPage(),
+                isIos: true,
+              )
             ),
           },
         ),
