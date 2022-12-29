@@ -39,14 +39,17 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.only(top: 5.0, right: 15.0),
           child: GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) =>
-                    GuestNumberForm(
-                        guestNumber: guestNumber,
-                        loginStatus: loginStatus
-                    )),
-              );
+              if (currentScreenId != guestNumberFormId) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>
+                      GuestNumberForm(
+                          guestNumber: guestNumber,
+                          loginStatus: loginStatus
+                      )
+                  ),
+                );
+              }
             },
             child: Text(
               '$leftNumber\n$guestNumber',
