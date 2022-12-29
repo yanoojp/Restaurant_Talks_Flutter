@@ -14,6 +14,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
   final int loginStatus;
   final int guestNumber;
   final int currentScreenId;
+
   final String title = 'Restaurant Talks Flutter';
 
   @override
@@ -24,7 +25,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       automaticallyImplyLeading: false,
-      leading: currentScreenId != itemIndexId | myPageId
+      leading: currentScreenId == itemFormPageId || currentScreenId == guestNumberFormId
           ? IconButton(
               onPressed: (){Navigator.of(context).pop();},
               icon: const Icon(Icons.arrow_back)
