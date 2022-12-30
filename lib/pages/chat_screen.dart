@@ -72,6 +72,7 @@ class ChatScreenState extends State<ChatScreen> {
       screenId: currentScreenId,
       loginStatus: widget.loginStatus,
       guestNumber: widget.guestNumber,
+      currentScreenId: currentScreenId,
     ),
   );
 

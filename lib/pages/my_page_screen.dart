@@ -115,6 +115,7 @@ class _MyPageState extends State<MyPageScreen> {
         screenId: currentScreenId,
         loginStatus: widget.loginStatus,
         guestNumber: widget.guestNumber,
+        currentScreenId: currentScreenId,
       ),
     );
   }
