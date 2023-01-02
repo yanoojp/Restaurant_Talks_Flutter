@@ -26,7 +26,6 @@ class _MyPageState extends State<MyPageScreen> {
     return Scaffold(
       appBar: Header(
         loginStatus: widget.loginStatus,
-        guestNumber: widget.guestNumber,
         currentScreenId: currentScreenId,
       ),
       body: Padding(

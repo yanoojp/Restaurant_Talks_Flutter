@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/components/weather_area.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
@@ -24,9 +25,9 @@ class ItemIndex extends StatefulWidget {
 
 class _ItemIndexState extends State<ItemIndex> {
   final int currentScreenId = itemIndexId;
-  String _selectedCategoryValue = 'appetizer';
+  String _selectedCategoryValue = appetizerLabel;
 
-  var items = itemsArray;
+  // var items = itemsArray;
 
   // カテゴリーソートはflutter連携時にやると良さそうなので、保留
   // List<Map<String, Object>> getItems() {
@@ -44,7 +45,7 @@ class _ItemIndexState extends State<ItemIndex> {
   @override
   void initState() {
     super.initState();
-    _selectedCategoryValue = categories[0];
+    _selectedCategoryValue = categoriesDropdown[0].value!;
   }
 
   @override
@@ -52,17 +53,12 @@ class _ItemIndexState extends State<ItemIndex> {
     return Scaffold(
       appBar: Header(
           loginStatus: widget.loginStatus,
-          guestNumber: widget.guestNumber,
           currentScreenId: currentScreenId,
       ),
       body: Column(
         children: [
           DropdownButton(
-            items: categories
-                .map((category) => DropdownMenuItem(
-                value: category,
-                child: Text(category)
-            )).toList(),
+            items: categoriesDropdown,
             value: _selectedCategoryValue,
             onChanged: (value) => {
               setState(() {
@@ -70,37 +66,54 @@ class _ItemIndexState extends State<ItemIndex> {
               }),
             },
           ),
-          Padding(
+          Container(
             padding: const EdgeInsets.only(top: 10.0),
-            child: Container(
-              height: MediaQuery.of(context).size.height / 100 * 60,
-              child: SingleChildScrollView(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Wrap(
-                    alignment: WrapAlignment.spaceEvenly,
-                    children: [
-                      for (int i = 0; i < items.length; i++) ... {
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(fixedSize: Size(100, 80)),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) =>
-                                  ItemFormPage(
-                                    title: title,
-                                    itemObject: items[i],
-                                    loginStatus: widget.loginStatus!,
-                                    guestNumber: widget.guestNumber,
-                                  )),
-                            );
-                          },
-                          child: Text("${items[i]['itemName']}"),
-                        ),
-                      }
-                    ],
-                  ),
-                ),
+            height: MediaQuery.of(context).size.height / 100 * 60,
+            width: MediaQuery.of(context).size.width,
+            child: SingleChildScrollView(
+
+              child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection(itemCollection)
+                    .orderBy('updatedAt')
+                    .snapshots(),
+
+                builder: (context, snapshot) {
+
+                  if (snapshot.hasError) {
+                    return const Text(
+                      errorMessage,
+                      textAlign: TextAlign.center,
+
+                    );
+                  }
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  final items = snapshot.requireData.docs
+                      .map((DocumentSnapshot document) {
+                    final documentData =
+                    document.data()!;
+                    return documentData!;
+                  }).toList();
+
+                  final itemObjectList = items.reversed.toList();
+
+                  // 一覧の表示
+                  if (itemObjectList.isNotEmpty) {
+                    return Wrap(
+                        alignment: WrapAlignment.spaceEvenly,
+                        children: getList(itemObjectList),
+                      );
+                  }
+
+                  // データがない場合
+                  return const Text(
+                    noDataMessage,
+                    textAlign: TextAlign.center,
+                  );
+                },
               ),
             ),
           ),
@@ -114,10 +127,8 @@ class _ItemIndexState extends State<ItemIndex> {
             context,
             MaterialPageRoute(builder:
                 (context) => ItemFormPage(
-                  title: title,
                   loginStatus: widget.loginStatus,
                   guestNumber: widget.guestNumber,
-
                 )
             ),
           );
@@ -127,7 +138,40 @@ class _ItemIndexState extends State<ItemIndex> {
         screenId: currentScreenId,
         loginStatus: widget.loginStatus,
         guestNumber: widget.guestNumber,
+        currentScreenId: currentScreenId,
       ),
     );
   }
+
+  // item一覧のList作成
+  List<Widget> getList(itemObjectList) {
+    List<Widget> listViewChildren = [];
+
+    for (int i = 0; i < itemObjectList.length; i++) {
+      listViewChildren.add(
+          Padding(
+            padding: const EdgeInsets.only(left: 5.0, right: 5),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(fixedSize: Size(100, 80)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>
+                    ItemFormPage(
+                      itemObject: itemObjectList[i],
+                      loginStatus: widget.loginStatus!,
+                      guestNumber: widget.guestNumber,
+                    )
+                  ),
+                );
+              },
+              child: Text(itemObjectList[i]['itemName']),
+            ),
+          )
+      );
+    }
+
+    return listViewChildren;
+  }
+
 }

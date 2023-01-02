@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:page_transition/page_transition.dart';
 import '../components/header.dart';
-import '../components/save_button_return_to_index.dart';
 import '../fixedDatas/variables.dart';
+import 'item_index.dart';
 
 class GuestNumberForm extends StatefulWidget {
   const GuestNumberForm({super.key, required this.guestNumber, required this.loginStatus,});
@@ -15,15 +17,15 @@ class GuestNumberForm extends StatefulWidget {
 
 class _GuestNumberFormState extends State<GuestNumberForm> {
   final int currentScreenId = guestNumberFormId;
+  final TextEditingController guestNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    String guestNumber = widget.guestNumber.toString();
+    int guestNumber = widget.guestNumber;
 
     return Scaffold(
       appBar: Header(
         loginStatus: widget.loginStatus,
-        guestNumber: widget.guestNumber,
         currentScreenId: currentScreenId,
       ),
       body: Center(
@@ -57,7 +59,7 @@ class _GuestNumberFormState extends State<GuestNumberForm> {
                           hintStyle: TextStyle(fontSize: 30),
                         ),
                         onChanged: (val) {
-                          guestNumber = val;
+                          guestNumber = int.parse(val);
                         },
                       ),
                   ),
@@ -73,7 +75,31 @@ class _GuestNumberFormState extends State<GuestNumberForm> {
                 ],
               ),
             ),
-            SaveButton(loginStatus: widget.loginStatus, guestNumber: int.parse(guestNumber)),
+            ElevatedButton(
+              onPressed: () {
+                final document = <String, dynamic>{
+                  'guestNumber': guestNumberController.text,
+                };
+                FirebaseFirestore.instance
+                    .collection('GuestNumber')
+                    .doc()
+                    .set(document);
+                setState(guestNumberController.clear);
+
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        child: ItemIndex(
+                            loginStatus: widget.loginStatus,
+                            prefectureName: '東京',
+                            guestNumber: guestNumber
+                        )
+                    )
+                );
+              },
+              child: Text(saveButton),
+            ),
           ],
         ),
       ),

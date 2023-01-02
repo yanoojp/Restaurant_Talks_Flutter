@@ -1,55 +1,92 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
+import '../fixedDatas/variables.dart';
 import '../pages/guest_number_form.dart';
 import '../pages/login_page.dart';
 
-class Header extends StatelessWidget implements PreferredSizeWidget {
+class Header extends StatefulWidget implements PreferredSizeWidget{
   const Header({
     super.key,
     required this.loginStatus,
-    required this.guestNumber,
     required this.currentScreenId
   });
 
   final int loginStatus;
-  final int guestNumber;
   final int currentScreenId;
-
-  final String title = 'Restaurant Talks Flutter';
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
-  Widget build(BuildContext context) {
+  State<Header> createState() => _HeaderState();
+}
 
+class _HeaderState extends State<Header> {
+  late int guestNumber;
+  late Future<int> gn;
+
+  /// Firestoreから値を取得する
+  Future<int> getGuestNumber() async {
+    final snapShot = await FirebaseFirestore.instance.collection('GuestNumber').get();
+    final guestNumber = snapShot.docs.first.data()['guestNumber'];
+    return guestNumber;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    gn = getGuestNumber();
+    gn.then((value) => {
+      guestNumber = value,
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      leading: currentScreenId == itemFormPageId || currentScreenId == guestNumberFormId
+      leading:
+        widget.currentScreenId == itemFormPageId || widget.currentScreenId == guestNumberFormId
           ? IconButton(
-              onPressed: (){Navigator.of(context).pop();},
-              icon: const Icon(Icons.arrow_back)
-            )
+          onPressed: (){Navigator.of(context).pop();},
+          icon: const Icon(Icons.arrow_back)
+      )
           : null,
-      title: Text(title),
+      title: Text(appTitle),
       actions: [
         Padding(
           padding: const EdgeInsets.only(top: 5.0, right: 15.0),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) =>
-                    GuestNumberForm(
-                        guestNumber: guestNumber,
-                        loginStatus: loginStatus
-                    )),
+          child: FutureBuilder<int>(
+            future: gn,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return GestureDetector(
+                  onTap: () {
+                    if (widget.currentScreenId != guestNumberFormId) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>
+                            GuestNumberForm(
+                                guestNumber: guestNumber,
+                                loginStatus: widget.loginStatus
+                            )
+                        ),
+                      );
+                    }
+                  },
+                  child: Text(
+                    '$leftNumber:\n$guestNumber$peopleUnit'.toString(),
+                    textAlign: TextAlign.center,
+                  ),
+                );
+              }
+
+              return Text(
+                '$leftNumber:\n$gettingData',
+                textAlign: TextAlign.center,
               );
-            },
-            child: Text(
-              '$leftNumber\n$guestNumber',
-              textAlign: TextAlign.center,
-            ),
+            }
           ),
         ),
         IconButton(

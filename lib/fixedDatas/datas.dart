@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
 
 var user = {
@@ -70,9 +71,21 @@ final positions = [
   ,
 ];
 
-List<String> categories = [
-  sortByCategoryLabel,
-  appetizerLabel,
-  mainDishLabel,
-  beverageLabel
+List<DropdownMenuItem<String>> categoriesDropdown = [
+  const DropdownMenuItem(
+    value: sortByCategoryLabel,
+    child: Text(sortByCategoryLabel),
+  ),
+  const DropdownMenuItem(
+    value: appetizerLabel,
+    child: Text(appetizerLabel),
+  ),
+  const DropdownMenuItem(
+    value: mainDishLabel,
+    child: Text(mainDishLabel),
+  ),
+  const DropdownMenuItem(
+    value: beverageLabel,
+    child: Text(beverageLabel),
+  ),
 ];

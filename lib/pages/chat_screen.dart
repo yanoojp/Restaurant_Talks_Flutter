@@ -59,7 +59,6 @@ class ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) => Scaffold(
     appBar: Header(
       loginStatus: widget.loginStatus,
-      guestNumber: widget.guestNumber,
       currentScreenId: currentScreenId,
     ),
     body: Chat(

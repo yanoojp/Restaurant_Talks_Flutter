@@ -1,20 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurant_talks_flutter/components/save_button_return_to_index.dart';
+import 'package:page_transition/page_transition.dart';
 import '../components/header.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import '../fixedDatas/datas.dart';
 import '../fixedDatas/variables.dart';
+import 'item_index.dart';
 
 class ItemFormPage extends StatefulWidget {
   const ItemFormPage({
     super.key,
-    required this.title,
     this.itemObject,
     required this.loginStatus,
     required this.guestNumber
   });
 
-  final String title;
   final int loginStatus;
   final int guestNumber;
   final itemObject;
@@ -27,19 +28,55 @@ class _ItemFormPageState extends State<ItemFormPage> {
   int _counter = 0;
   final int currentScreenId = itemFormPageId;
 
-  final ImagePicker _picker = ImagePicker();
-  File? _file;
+  late String itemName;
+  late String itemCount;
+  late String itemDetail;
+  late String category;
+
+  @override
+  void initState() {
+    super.initState();
+
+    itemName =
+      widget.itemObject != null
+        ? "${widget.itemObject['itemName']}"
+        : '';
+    itemCount =
+      widget.itemObject != null
+        ? "${widget.itemObject['itemCount']}"
+        : '0';
+    itemDetail =
+      widget.itemObject != null
+        ? "${widget.itemObject['itemDetail']}"
+        : '';
+    category =
+      widget.itemObject != null
+        ? "${widget.itemObject['category']}"
+        : categoriesDropdown[0].value!;
+  }
+
+  // final ImagePicker _picker = ImagePicker();
+  // File? _file;
+
+  late TextEditingController _itemNameController;
+  late TextEditingController _itemDetailController;
+
+  @override
+  void dispose() {
+    _itemNameController.dispose();
+    _itemDetailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    String itemName =
-      widget.itemObject != null ? "${widget.itemObject['itemName']}" : '';
-    String itemStock =
-      widget.itemObject != null ? "${widget.itemObject['itemStock']}" : '0';
-    String itemDetail =
-      widget.itemObject != null ? "${widget.itemObject['itemDetail']}" : '';
-    String itemImage =
-      widget.itemObject != null ? "${widget.itemObject['itemImage']}" : '';
+
+    _itemNameController = TextEditingController(
+        text: itemName
+    );
+    _itemDetailController = TextEditingController(
+        text: itemDetail
+    );
 
     void incrementCounter() {
       setState(() {
@@ -56,7 +93,6 @@ class _ItemFormPageState extends State<ItemFormPage> {
     return Scaffold(
         appBar: Header(
           loginStatus: widget.loginStatus,
-          guestNumber: widget.guestNumber!,
           currentScreenId: currentScreenId,
         ),
         body: Padding(
@@ -72,9 +108,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                   ),
                 ),
                 TextField(
-                  controller: TextEditingController(
-                      text: itemName,
-                  ),
+                  controller: _itemNameController,
                   onChanged: (value) {
                     itemName = value;
                   },
@@ -94,13 +128,17 @@ class _ItemFormPageState extends State<ItemFormPage> {
                       children: [
                         FloatingActionButton(
                           heroTag: "btn1",
-                          onPressed: decrementCounter,
+                          onPressed: () {
+                            if (_counter + int.parse(itemCount) > 0) {
+                              decrementCounter();
+                            }
+                          },
                           tooltip: 'Decrement',
                           child: const Icon(Icons.remove),
                         ),
                         Text(
-                            (_counter + int.parse(itemStock)).toString(),
-                            style: Theme.of(context).textTheme.headline4,
+                          (_counter + int.parse(itemCount)).toString(),
+                          style: Theme.of(context).textTheme.headline4,
                         ),
                         FloatingActionButton(
                           heroTag: "btn2",
@@ -112,6 +150,29 @@ class _ItemFormPageState extends State<ItemFormPage> {
                     ),
                   ],
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 30.0),
+                    width: double.infinity,
+                    child: const Text(
+                      categoryLabel,
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: DropdownButton(
+                    items: categoriesDropdown,
+                    value: category,
+                    onChanged: (value) => {
+                      setState(() {
+                        category = value!;
+                      }),
+                    },
+                  ),
+                ),
                 Container(
                   padding: const EdgeInsets.only(top: 30.0),
                   width: double.infinity,
@@ -121,9 +182,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                   ),
                 ),
                 TextField(
-                  controller: TextEditingController(
-                      text: itemDetail,
-                  ),
+                  controller: _itemDetailController,
                   onChanged: (value) {
                     itemDetail = value;
                   },
@@ -136,26 +195,61 @@ class _ItemFormPageState extends State<ItemFormPage> {
                     textAlign: TextAlign.left,
                   ),
                 ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(vertical: 10.0),
+                //   child: OutlinedButton(
+                //       onPressed: () async {
+                //         final XFile? image =
+                //           await _picker.pickImage(source: ImageSource.gallery);
+                //         _file = File(image!.path);
+                //         setState(() {});
+                //       },
+                //       child: const Text(pickAImage)
+                //   ),
+                // ),
+
+                // //画像表示エリア
+                // if (_file != null && itemImage == '')
+                //   Image.file(_file!, fit: BoxFit.cover,)
+                // else if (itemImage != '')
+                //   Image.network(itemImage),
+
+                // 保存ボタンエリア
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: OutlinedButton(
-                      onPressed: () async {
-                        final XFile? image =
-                          await _picker.pickImage(source: ImageSource.gallery);
-                        _file = File(image!.path);
-                        setState(() {});
-                      },
-                      child: const Text('画像を選択')
-                  ),
-                ),
-                //画像表示エリア
-                if (_file != null && itemImage == '')
-                  Image.file(_file!, fit: BoxFit.cover,)
-                else if (itemImage != '')
-                  Image.network(itemImage),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: SaveButton(loginStatus: widget.loginStatus, guestNumber: widget.guestNumber,),
+                  child: ElevatedButton(
+                    onPressed: () {
+
+                      // 保存時のfirebaseとの連携
+                      final newItem = <String, dynamic>{
+                        'itemName': _itemNameController.text,
+                        'itemDetail': _itemDetailController.text,
+                        'category': category,
+                        'itemCount': (_counter + int.parse(itemCount)).toString(),
+                        'updatedAt': Timestamp.fromDate(DateTime.now()),
+                      };
+                      FirebaseFirestore.instance
+                        .collection(itemCollection)
+                        .doc()
+                        .set(newItem);
+                      setState(_itemNameController.clear);
+                      setState(_itemDetailController.clear);
+
+                      // 保存ボタン押下時の画面遷移
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.leftToRight,
+                              child: ItemIndex(
+                                  loginStatus: widget.loginStatus,
+                                  prefectureName: '東京',
+                                  guestNumber: widget.guestNumber
+                              )
+                          )
+                      );
+                    },
+                    child: Text(saveButton),
+                  )
                 ),
               ],
             ),
