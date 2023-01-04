@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../fixedDatas/variables.dart';
+
 class FormWithLabelForLogin extends StatelessWidget {
   const FormWithLabelForLogin({super.key, required this.labelText,});
   final String labelText;
@@ -15,7 +17,9 @@ class FormWithLabelForLogin extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
         ),
-        const TextField(),
+        TextField(
+          obscureText: labelText == passwordLabel ? true : false,
+        ),
       ],
     );
   }

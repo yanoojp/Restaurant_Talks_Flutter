@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/components/form_with_label_for_login.dart';
 import 'package:restaurant_talks_flutter/pages/item_index.dart';
 import 'package:restaurant_talks_flutter/pages/sign_up.dart';
-
 import '../fixedDatas/variables.dart';
 
 class LoginPage extends StatefulWidget {

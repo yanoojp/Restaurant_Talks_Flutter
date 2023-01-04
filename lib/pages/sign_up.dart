@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/pages/login_page.dart';
+import 'package:restaurant_talks_flutter/utils/authentication.dart';
 import '../fixedDatas/datas.dart';
 import '../fixedDatas/variables.dart';
 import 'item_index.dart';
@@ -19,7 +20,6 @@ class _SignUpState extends State<SignUp> {
   late String password;
   late String hotelName;
   late String nameOfRepresentative;
-
 
   @override
   void initState() {
@@ -72,6 +72,7 @@ class _SignUpState extends State<SignUp> {
                   onChanged: (text) {
                    password = text;
                   },
+                  obscureText: true,
                 ),
                 Container(
                   padding: const EdgeInsets.only(top: 20),
@@ -153,16 +154,19 @@ class _SignUpState extends State<SignUp> {
                     children: [
                       ElevatedButton(
                         child: const Text(signUButton),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => ItemIndex(
-                              loginStatus: _selectedPositionValue,
-                              prefectureName: selectedPrefectureValue,
-                              guestNumber: 10
-                            ),
-                            ),
-                          );
+                        onPressed: () async{
+                          var result = await Authentication.signUp(email: email, password: password);
+                          if (result == true) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ItemIndex(
+                                  loginStatus: _selectedPositionValue,
+                                  prefectureName: selectedPrefectureValue,
+                                  guestNumber: 10
+                              ),
+                              ),
+                            );
+                          }
                         },
                       ),
                       Padding(
