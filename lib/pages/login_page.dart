@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_talks_flutter/components/form_with_label_for_login.dart';
 import 'package:restaurant_talks_flutter/pages/item_index.dart';
 import 'package:restaurant_talks_flutter/pages/sign_up.dart';
+import 'package:restaurant_talks_flutter/utils/authentication.dart';
 import '../fixedDatas/variables.dart';
 
 class LoginPage extends StatefulWidget {
@@ -21,6 +21,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   List<DropdownMenuItem<int>> _items = [];
   int _selectedPositionValue = 0;
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -59,10 +62,29 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              const FormWithLabelForLogin(labelText: emailLabel,),
+              Container(
+                width: double.infinity,
+                child: Text(
+                  emailLabel,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              TextField(
+                controller: emailController,
+              ),
               const Padding(
                 padding: EdgeInsets.only(top: 20.0),
-                child: FormWithLabelForLogin(labelText: passwordLabel,),
+              ),
+              Container(
+                width: double.infinity,
+                child: Text(
+                  passwordLabel,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              TextField(
+                controller: passwordController,
+                obscureText: true,
               ),
               /* ポジション選択ドロップダウン　*/
               Padding(
@@ -92,15 +114,22 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     ElevatedButton(
                       child: const Text(loginButton),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ItemIndex(
-                            loginStatus: _selectedPositionValue,
-                            prefectureName: '東京',
-                            guestNumber: 10,)
-                          ),
+                      onPressed: () async{
+                        var result = await Authentication.login(
+                        email: emailController.text,
+                        password: passwordController.text
                         );
+                        if (result == true) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>
+                                ItemIndex(
+                                  loginStatus: _selectedPositionValue,
+                                  prefectureName: '東京',
+                                  guestNumber: 10,)
+                            ),
+                          );
+                        }
                       },
                     ),
                     ElevatedButton(
