@@ -38,12 +38,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
           Navigator.push(
             context,
             PageTransition(
-                type: PageTransitionType.leftToRight,
-                child: ItemIndex(
-                  loginStatus: widget.loginStatus,
-                  prefectureName: '東京',
-                  guestNumber: widget.guestNumber,
-                )
+              type: PageTransitionType.leftToRight,
+              child: ItemIndex(
+                loginStatus: widget.loginStatus,
+                prefectureName: '東京',
+                guestNumber: widget.guestNumber,
+              ),
+              isIos: true,
             )
           );
         } else if (selectedIndex == chatScreenId) {

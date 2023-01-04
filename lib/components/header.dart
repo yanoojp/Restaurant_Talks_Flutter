@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../fixedDatas/variables.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
 import '../pages/guest_number_form.dart';
 import '../pages/login_page.dart';
 
@@ -94,7 +96,11 @@ class _HeaderState extends State<Header> {
           onPressed: () => {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => LoginPage()),
+              PageTransition(
+                type: PageTransitionType.leftToRight,
+                child: LoginPage(),
+                isIos: true,
+              )
             ),
           },
         ),
