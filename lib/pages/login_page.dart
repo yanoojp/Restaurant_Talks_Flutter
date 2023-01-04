@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              FormWithLabelForLogin(labelText: emailLabel,),
+              const FormWithLabelForLogin(labelText: emailLabel,),
               const Padding(
                 padding: EdgeInsets.only(top: 20.0),
                 child: FormWithLabelForLogin(labelText: passwordLabel,),

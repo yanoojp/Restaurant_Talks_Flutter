@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather/weather.dart';
-
+import '../fixedDatas/variables.dart';
 import '../fixedDatas/api_keys.dart';
 
 class WeatherArea extends StatefulWidget {
@@ -36,7 +36,7 @@ class _WeatherAreaState extends State<WeatherArea> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 15.0, left: 15.0),
+      padding: const EdgeInsets.only(top: 30.0, left: 15.0),
       child: Container(
         width: double.infinity,
         child: FutureBuilder(
@@ -45,12 +45,10 @@ class _WeatherAreaState extends State<WeatherArea> {
               if (snapshot.connectionState == ConnectionState.done) {
                 // アイコンの表示はTodo
                 return Text(
-                  '外の天気：$currentWeather',
-                  style: const TextStyle(
-                  ),
+                  '$weatherOutside：$currentWeather',
                 );
               } else {
-                return const Text("'外の天気：データ取得中...");
+                return const Text("$weatherOutside：$gettingData");
               }
             }
         ),

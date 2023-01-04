@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
 import '../pages/item_index.dart';
 
 class SaveButton extends StatelessWidget {
@@ -11,13 +12,19 @@ class SaveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        print("保存ボタンが押されました");
         Navigator.push(
             context,
-            PageTransition(type: PageTransitionType.leftToRight, child: ItemIndex(loginStatus: loginStatus, prefectureName: '東京', guestNumber: guestNumber))
+            PageTransition(
+                type: PageTransitionType.leftToRight,
+                child: ItemIndex(
+                    loginStatus: loginStatus,
+                    prefectureName: '東京',
+                    guestNumber: guestNumber
+                )
+            )
         );
       },
-      child: Text('保存する'),
+      child: Text(saveButton),
     );
   }
 }

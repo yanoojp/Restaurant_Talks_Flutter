@@ -10,12 +10,14 @@ class BottomNavigation extends StatefulWidget {
     super.key,
     required this.screenId,
     required this.loginStatus,
-    required this.guestNumber
+    required this.guestNumber,
+    required this.currentScreenId,
   });
 
   final int screenId;
   final int loginStatus;
   final int guestNumber;
+  final int currentScreenId;
 
   @override
   State<BottomNavigation> createState() => _BottomNavigationState();
@@ -46,15 +48,29 @@ class _BottomNavigationState extends State<BottomNavigation> {
             )
           );
         } else if (selectedIndex == chatScreenId) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>
-                ChatScreen(
-                  loginStatus: widget.loginStatus,
-                  guestNumber: widget.guestNumber,
+          if (widget.currentScreenId == itemIndexId) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>
+                  ChatScreen(
+                    loginStatus: widget.loginStatus,
+                    guestNumber: widget.guestNumber,
+                  )
+              ),
+            );
+          } else {
+            Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.leftToRight,
+                  child: ChatScreen(
+                    loginStatus: widget.loginStatus,
+                    guestNumber: widget.guestNumber,
+                  ),
+                  isIos: true,
                 )
-            ),
-          );
+            );
+          }
         } else if (selectedIndex == myPageId) {
           Navigator.push(
             context,

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "285311339049",
+    "project_id": "restaurant-talks-flutter",
+    "storage_bucket": "restaurant-talks-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:285311339049:android:daa30dda45ed74aec9aa38",
+        "android_client_info": {
+          "package_name": "com.example.restaurant_talks_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "285311339049-t6n8t3qo5n7hf8t56ognld0i5hapeuon.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5f7fu1M1B13otM07t2U-R51xkRSZMMrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "285311339049-t6n8t3qo5n7hf8t56ognld0i5hapeuon.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
