@@ -15,6 +15,7 @@ class Authentication {
         email: email,
         password: password
       );
+      currentFirebaseUser = newAccount.user;
       return newAccount;
     } on FirebaseAuthException catch(e) {
       return false;
@@ -30,6 +31,7 @@ class Authentication {
         email: email,
         password: password
       );
+      currentFirebaseUser = _result.user;
       return _result;
     } on FirebaseAuthException catch(e) {
       return false;

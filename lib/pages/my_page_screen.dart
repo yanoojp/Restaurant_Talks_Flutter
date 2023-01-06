@@ -24,6 +24,7 @@ class _MyPageState extends State<MyPageScreen> {
   Account myAccount = Authentication.myAccount!;
   String selectedPrefectureValue = '北海道';
 
+  TextEditingController emailController = TextEditingController();
   TextEditingController hotelnameController = TextEditingController();
   TextEditingController nameOfRepresentativeController = TextEditingController();
 
@@ -31,14 +32,15 @@ class _MyPageState extends State<MyPageScreen> {
   void initState() async{
     super.initState();
 
+    hotelnameController = TextEditingController(text: myAccount.email);
     hotelnameController = TextEditingController(text: myAccount.hotelName);
-    nameOfRepresentativeController = TextEditingController(text: myAccount.nameOfRepresentative);
+    nameOfRepresentativeController = TextEditingController(
+        text: myAccount.nameOfRepresentative
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    print(myAccount.prefecture);
-
     return Scaffold(
       appBar: Header(
         loginStatus: widget.loginStatus,
@@ -69,7 +71,7 @@ class _MyPageState extends State<MyPageScreen> {
               onChanged: (text) {
                 user['email'] = text;
               },
-              controller: TextEditingController(text: myAccount.email),
+              controller: nameOfRepresentativeController,
             ),
             Container(
               padding: const EdgeInsets.only(top: 20),
@@ -129,11 +131,12 @@ class _MyPageState extends State<MyPageScreen> {
               onPressed: () async{
                 Account updateAccount = Account(
                   id: myAccount.id,
-                  email: myAccount.email,
+                  email: emailController.text,
                   hotelName: hotelnameController.text,
                   nameOfRepresentative: nameOfRepresentativeController.text,
                   prefecture: selectedPrefectureValue,
                 );
+                Authentication.myAccount = updateAccount;
                 var result = await UserFirestore.updateUser(updateAccount);
                 if (result == true) {
                   Navigator.push(

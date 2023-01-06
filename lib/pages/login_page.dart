@@ -122,14 +122,15 @@ class _LoginPageState extends State<LoginPage> {
                         password: passwordController.text
                         );
                         if (result is UserCredential) {
-                          var loggedInUserInformation = await UserFirestore.getUser(result.user!.uid, result.user!.email!);
-                          if (loggedInUserInformation is UserCredential) {
+                          var _loggedInUserInformation = await UserFirestore.getUser(result.user!.uid, result.user!.email!);
+                          if (_loggedInUserInformation != false) {
+                            if (!mounted) return;
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) =>
                                   ItemIndex(
                                     loginStatus: _selectedPositionValue,
-                                    guestNumber: 10,
+                                    guestNumber: 0,
                                   )
                               ),
                             );

@@ -25,7 +25,7 @@ class ItemIndex extends StatefulWidget {
 
 class _ItemIndexState extends State<ItemIndex> {
   final int currentScreenId = itemIndexId;
-  String _selectedCategoryValue = appetizerLabel;
+  late String _selectedCategoryValue;
 
   Account myAccount = Authentication.myAccount!;
 

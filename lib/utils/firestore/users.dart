@@ -6,10 +6,11 @@ class UserFirestore {
   static final _firestoreInstance = FirebaseFirestore.instance;
   static final CollectionReference users = _firestoreInstance.collection('Users');
 
-  static Future<bool> setUser(Account newAccount) async{
+  static Future<bool> setUser(Account newAccount, String email) async{
     try {
       await users.doc(newAccount.id).set({
         'hotelName': newAccount.hotelName,
+        'email': email,
         'nameOfRepresentative': newAccount.nameOfRepresentative,
         'prefecture': newAccount.prefecture,
       });
@@ -30,6 +31,7 @@ class UserFirestore {
         nameOfRepresentative: data['nameOfRepresentative'],
         prefecture: data['prefecture'],
       );
+
       Authentication.myAccount = myAccount;
       return myAccount;
     } on FirebaseException catch(e) {
@@ -41,6 +43,7 @@ class UserFirestore {
     try {
       await users.doc(updateAccount.id).update({
         'hotelName': updateAccount.hotelName,
+        'email': updateAccount.email,
         'nameOfRepresentative': updateAccount.nameOfRepresentative,
         'prefecture': updateAccount.prefecture,
       });

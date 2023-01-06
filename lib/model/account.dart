@@ -1,6 +1,6 @@
 class Account {
   String id;
-  String? email;
+  String email;
   String hotelName;
   String nameOfRepresentative;
   String prefecture;

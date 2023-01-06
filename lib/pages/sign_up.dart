@@ -33,7 +33,7 @@ class _SignUpState extends State<SignUp> {
 
     // ポジションと都道府県の初期値を設定
     _selectedPositionValue = positions[0]['positionId'] as int;
-    selectedPrefectureValue = prefectures[0]!;
+    selectedPrefectureValue = prefectures[0];
   }
 
   @override
@@ -167,17 +167,20 @@ class _SignUpState extends State<SignUp> {
                           if (result is UserCredential) {
                             Account newAccount = Account(
                               id: result.user!.uid,
+                              email: result.user!.email!,
                               hotelName: hotelNameController.text,
                               nameOfRepresentative: nameOfRepresentativeController.text,
                               prefecture: selectedPrefectureValue,
                             );
-                            var _result = await UserFirestore.setUser(newAccount);
+                            var _result = await UserFirestore.setUser(newAccount, email);
                             if (_result == true) {
+                              Authentication.myAccount = newAccount;
+                              if (!mounted) return;
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => ItemIndex(
                                     loginStatus: _selectedPositionValue,
-                                    guestNumber: 10,
+                                    guestNumber: 0,
                                 )),
                               );
                             }
