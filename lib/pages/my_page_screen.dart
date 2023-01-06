@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
@@ -8,6 +9,7 @@ import '../components/header.dart';
 import '../fixedDatas/datas.dart';
 import '../model/account.dart';
 import 'item_index.dart';
+import 'login_page.dart';
 
 class MyPageScreen extends StatefulWidget {
   const MyPageScreen({super.key, required this.loginStatus, required this.guestNumber});
@@ -153,6 +155,21 @@ class _MyPageState extends State<MyPageScreen> {
                 }
               },
               child: Text(saveButton),
+            ),
+            TextButton(
+              onPressed: () {
+                UserFirestore.deleteUser(myAccount.id);
+                Authentication.deleteAccount();
+                Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.leftToRight,
+                      child: LoginPage(),
+                      isIos: true,
+                    )
+                );
+              },
+              child: Text(deleteAccount),
             ),
           ],
         ),
