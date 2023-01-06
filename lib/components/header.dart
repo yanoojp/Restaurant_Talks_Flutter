@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurant_talks_flutter/utils/authentication.dart';
 import '../fixedDatas/variables.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
@@ -94,6 +95,7 @@ class _HeaderState extends State<Header> {
         IconButton(
           icon: const Icon(Icons.logout),
           onPressed: () => {
+            Authentication.logout(),
             Navigator.push(
               context,
               PageTransition(
