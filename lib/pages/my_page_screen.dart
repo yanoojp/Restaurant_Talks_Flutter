@@ -20,23 +20,24 @@ class MyPageScreen extends StatefulWidget {
 
 class _MyPageState extends State<MyPageScreen> {
   final int currentScreenId = myPageId;
-
-  Account myAccount = Authentication.myAccount!;
-  String selectedPrefectureValue = '北海道';
+  late String selectedPrefectureValue;
+  late Account myAccount;
 
   TextEditingController emailController = TextEditingController();
   TextEditingController hotelnameController = TextEditingController();
   TextEditingController nameOfRepresentativeController = TextEditingController();
 
   @override
-  void initState() async{
+  void initState() {
     super.initState();
 
-    hotelnameController = TextEditingController(text: myAccount.email);
+    myAccount = Authentication.myAccount!;
+    emailController = TextEditingController(text: myAccount.email);
     hotelnameController = TextEditingController(text: myAccount.hotelName);
     nameOfRepresentativeController = TextEditingController(
         text: myAccount.nameOfRepresentative
     );
+    selectedPrefectureValue = myAccount.prefecture;
   }
 
   @override
@@ -71,7 +72,7 @@ class _MyPageState extends State<MyPageScreen> {
               onChanged: (text) {
                 user['email'] = text;
               },
-              controller: nameOfRepresentativeController,
+              controller: emailController,
             ),
             Container(
               padding: const EdgeInsets.only(top: 20),
@@ -117,7 +118,7 @@ class _MyPageState extends State<MyPageScreen> {
                           value: list,
                           child: Text(list)
                       )).toList(),
-                      value: myAccount.prefecture,
+                      value: selectedPrefectureValue,
                       onChanged: (String? value) {
                         setState(() {
                           selectedPrefectureValue = value!;
