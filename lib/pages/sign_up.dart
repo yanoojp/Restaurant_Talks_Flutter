@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/pages/login_page.dart';
 import 'package:restaurant_talks_flutter/utils/authentication.dart';
+import 'package:restaurant_talks_flutter/utils/firestore/users.dart';
 import '../fixedDatas/datas.dart';
 import '../fixedDatas/variables.dart';
+import '../model/account.dart';
 import 'item_index.dart';
 
 class SignUp extends StatefulWidget {
@@ -20,6 +23,9 @@ class _SignUpState extends State<SignUp> {
   late String password;
   late String hotelName;
   late String nameOfRepresentative;
+
+  TextEditingController hotelNameController = TextEditingController();
+  TextEditingController nameOfRepresentativeController = TextEditingController();
 
   @override
   void initState() {
@@ -86,6 +92,7 @@ class _SignUpState extends State<SignUp> {
                   onChanged: (text) {
                    hotelName = text;
                   },
+                  controller: hotelNameController,
                 ),
                 Container(
                   padding: const EdgeInsets.only(top: 20),
@@ -99,6 +106,7 @@ class _SignUpState extends State<SignUp> {
                   onChanged: (text) {
                    nameOfRepresentative = text;
                   },
+                  controller: nameOfRepresentativeController,
                 ),
                 /* ポジション選択ドロップダウン　*/
                 Padding(
@@ -156,16 +164,23 @@ class _SignUpState extends State<SignUp> {
                         child: const Text(signUButton),
                         onPressed: () async{
                           var result = await Authentication.signUp(email: email, password: password);
-                          if (result == true) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ItemIndex(
-                                  loginStatus: _selectedPositionValue,
-                                  prefectureName: selectedPrefectureValue,
-                                  guestNumber: 10
-                              ),
-                              ),
+                          if (result is UserCredential) {
+                            Account newAccount = Account(
+                              id: result.user!.uid,
+                              hotelName: hotelNameController.text,
+                              nameOfRepresentative: nameOfRepresentativeController.text,
+                              prefecture: selectedPrefectureValue,
                             );
+                            var _result = await UserFirestore.setUser(newAccount);
+                            if (_result == true) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ItemIndex(
+                                    loginStatus: _selectedPositionValue,
+                                    guestNumber: 10,
+                                )),
+                              );
+                            }
                           }
                         },
                       ),

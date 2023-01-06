@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
+import 'package:restaurant_talks_flutter/utils/authentication.dart';
+import 'package:restaurant_talks_flutter/utils/firestore/users.dart';
 import '../components/bottom_navigation.dart';
 import '../components/header.dart';
-import '../components/save_button_return_to_index.dart';
 import '../fixedDatas/datas.dart';
+import '../model/account.dart';
+import 'item_index.dart';
 
 class MyPageScreen extends StatefulWidget {
   const MyPageScreen({super.key, required this.loginStatus, required this.guestNumber});
@@ -16,12 +20,24 @@ class MyPageScreen extends StatefulWidget {
 
 class _MyPageState extends State<MyPageScreen> {
   final int currentScreenId = myPageId;
-  late String selectedPrefectureValue;
+
+  Account myAccount = Authentication.myAccount!;
+  String selectedPrefectureValue = '北海道';
+
+  TextEditingController hotelnameController = TextEditingController();
+  TextEditingController nameOfRepresentativeController = TextEditingController();
+
+  @override
+  void initState() async{
+    super.initState();
+
+    hotelnameController = TextEditingController(text: myAccount.hotelName);
+    nameOfRepresentativeController = TextEditingController(text: myAccount.nameOfRepresentative);
+  }
 
   @override
   Widget build(BuildContext context) {
-    // 都道府県の初期値を設定
-    selectedPrefectureValue = prefectures[0]!;
+    print(myAccount.prefecture);
 
     return Scaffold(
       appBar: Header(
@@ -53,6 +69,7 @@ class _MyPageState extends State<MyPageScreen> {
               onChanged: (text) {
                 user['email'] = text;
               },
+              controller: TextEditingController(text: myAccount.email),
             ),
             Container(
               padding: const EdgeInsets.only(top: 20),
@@ -66,6 +83,7 @@ class _MyPageState extends State<MyPageScreen> {
               onChanged: (text) {
                 user['hotelName'] = text;
               },
+              controller: hotelnameController,
             ),
             Container(
               padding: const EdgeInsets.only(top: 20),
@@ -79,6 +97,7 @@ class _MyPageState extends State<MyPageScreen> {
               onChanged: (text) {
                 user['nameOfRepresentative'] = text;
               },
+              controller: nameOfRepresentativeController,
             ),
             /* 都道府県選択ドロップダウン　*/
             Padding(
@@ -96,7 +115,7 @@ class _MyPageState extends State<MyPageScreen> {
                           value: list,
                           child: Text(list)
                       )).toList(),
-                      value: selectedPrefectureValue,
+                      value: myAccount.prefecture,
                       onChanged: (String? value) {
                         setState(() {
                           selectedPrefectureValue = value!;
@@ -106,7 +125,31 @@ class _MyPageState extends State<MyPageScreen> {
                 ],
               ),
             ),
-            SaveButton(loginStatus: widget.loginStatus, guestNumber: widget.guestNumber,),
+            ElevatedButton(
+              onPressed: () async{
+                Account updateAccount = Account(
+                  id: myAccount.id,
+                  email: myAccount.email,
+                  hotelName: hotelnameController.text,
+                  nameOfRepresentative: nameOfRepresentativeController.text,
+                  prefecture: selectedPrefectureValue,
+                );
+                var result = await UserFirestore.updateUser(updateAccount);
+                if (result == true) {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          type: PageTransitionType.leftToRight,
+                          child: ItemIndex(
+                              loginStatus: widget.loginStatus,
+                              guestNumber: widget.guestNumber
+                          )
+                      )
+                  );
+                }
+              },
+              child: Text(saveButton),
+            ),
           ],
         ),
       ),

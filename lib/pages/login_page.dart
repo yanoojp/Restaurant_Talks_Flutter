@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/pages/item_index.dart';
 import 'package:restaurant_talks_flutter/pages/sign_up.dart';
 import 'package:restaurant_talks_flutter/utils/authentication.dart';
+import 'package:restaurant_talks_flutter/utils/firestore/users.dart';
 import '../fixedDatas/variables.dart';
 
 class LoginPage extends StatefulWidget {
@@ -119,16 +121,19 @@ class _LoginPageState extends State<LoginPage> {
                         email: emailController.text,
                         password: passwordController.text
                         );
-                        if (result == true) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) =>
-                                ItemIndex(
-                                  loginStatus: _selectedPositionValue,
-                                  prefectureName: '東京',
-                                  guestNumber: 10,)
-                            ),
-                          );
+                        if (result is UserCredential) {
+                          var loggedInUserInformation = await UserFirestore.getUser(result.user!.uid, result.user!.email!);
+                          if (loggedInUserInformation is UserCredential) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>
+                                  ItemIndex(
+                                    loginStatus: _selectedPositionValue,
+                                    guestNumber: 10,
+                                  )
+                              ),
+                            );
+                          }
                         }
                       },
                     ),

@@ -1,25 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import '../model/account.dart';
 
 class Authentication {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   static User? currentFirebaseUser;
+  static Account? myAccount;
 
-  static Future<bool> signUp({
+  static Future<dynamic> signUp({
     required String email,
     required String password
   }) async{
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      UserCredential newAccount = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password
       );
-      return true;
+      return newAccount;
     } on FirebaseAuthException catch(e) {
       return false;
     }
   }
 
-  static Future<bool> login({
+  static Future<dynamic> login({
     required String email,
     required String password
   }) async{
@@ -28,11 +30,8 @@ class Authentication {
         email: email,
         password: password
       );
-      currentFirebaseUser =_result.user;
-      print('ok');
-      return true;
+      return _result;
     } on FirebaseAuthException catch(e) {
-      print('ng');
       return false;
     }
   }

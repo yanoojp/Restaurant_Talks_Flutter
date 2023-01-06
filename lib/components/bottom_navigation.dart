@@ -41,7 +41,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
               type: PageTransitionType.leftToRight,
               child: ItemIndex(
                 loginStatus: widget.loginStatus,
-                prefectureName: '東京',
                 guestNumber: widget.guestNumber,
               ),
               isIos: true,
