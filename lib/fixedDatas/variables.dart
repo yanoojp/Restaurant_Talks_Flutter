@@ -23,6 +23,7 @@ const String toSignUpScreen = 'サインアップ画面へ';
 const String toLoginScreen = 'ログイン画面へ';
 const String saveButton = '保存する';
 const String pickAImage = '画像を選択';
+const String deleteAccount = 'アカウントを削除する';
 
 // ラベル表示
 const String itemNameLabel = 'アイテム名';

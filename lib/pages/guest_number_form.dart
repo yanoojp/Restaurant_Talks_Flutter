@@ -92,7 +92,6 @@ class _GuestNumberFormState extends State<GuestNumberForm> {
                         type: PageTransitionType.leftToRight,
                         child: ItemIndex(
                             loginStatus: widget.loginStatus,
-                            prefectureName: '東京',
                             guestNumber: guestNumber
                         )
                     )

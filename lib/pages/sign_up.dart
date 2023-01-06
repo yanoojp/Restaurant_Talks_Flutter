@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/pages/login_page.dart';
+import 'package:restaurant_talks_flutter/utils/authentication.dart';
+import 'package:restaurant_talks_flutter/utils/firestore/users.dart';
 import '../fixedDatas/datas.dart';
 import '../fixedDatas/variables.dart';
+import '../model/account.dart';
 import 'item_index.dart';
 
 class SignUp extends StatefulWidget {
@@ -20,6 +24,8 @@ class _SignUpState extends State<SignUp> {
   late String hotelName;
   late String nameOfRepresentative;
 
+  TextEditingController hotelNameController = TextEditingController();
+  TextEditingController nameOfRepresentativeController = TextEditingController();
 
   @override
   void initState() {
@@ -27,7 +33,7 @@ class _SignUpState extends State<SignUp> {
 
     // ポジションと都道府県の初期値を設定
     _selectedPositionValue = positions[0]['positionId'] as int;
-    selectedPrefectureValue = prefectures[0]!;
+    selectedPrefectureValue = prefectures[0];
   }
 
   @override
@@ -72,6 +78,7 @@ class _SignUpState extends State<SignUp> {
                   onChanged: (text) {
                    password = text;
                   },
+                  obscureText: true,
                 ),
                 Container(
                   padding: const EdgeInsets.only(top: 20),
@@ -85,6 +92,7 @@ class _SignUpState extends State<SignUp> {
                   onChanged: (text) {
                    hotelName = text;
                   },
+                  controller: hotelNameController,
                 ),
                 Container(
                   padding: const EdgeInsets.only(top: 20),
@@ -98,6 +106,7 @@ class _SignUpState extends State<SignUp> {
                   onChanged: (text) {
                    nameOfRepresentative = text;
                   },
+                  controller: nameOfRepresentativeController,
                 ),
                 /* ポジション選択ドロップダウン　*/
                 Padding(
@@ -153,16 +162,29 @@ class _SignUpState extends State<SignUp> {
                     children: [
                       ElevatedButton(
                         child: const Text(signUButton),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => ItemIndex(
-                              loginStatus: _selectedPositionValue,
-                              prefectureName: selectedPrefectureValue,
-                              guestNumber: 10
-                            ),
-                            ),
-                          );
+                        onPressed: () async{
+                          var result = await Authentication.signUp(email: email, password: password);
+                          if (result is UserCredential) {
+                            Account newAccount = Account(
+                              id: result.user!.uid,
+                              email: result.user!.email!,
+                              hotelName: hotelNameController.text,
+                              nameOfRepresentative: nameOfRepresentativeController.text,
+                              prefecture: selectedPrefectureValue,
+                            );
+                            var _result = await UserFirestore.setUser(newAccount, email);
+                            if (_result == true) {
+                              Authentication.myAccount = newAccount;
+                              if (!mounted) return;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ItemIndex(
+                                    loginStatus: _selectedPositionValue,
+                                    guestNumber: 0,
+                                )),
+                              );
+                            }
+                          }
                         },
                       ),
                       Padding(

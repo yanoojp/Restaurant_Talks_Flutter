@@ -7,6 +7,7 @@ class WeatherArea extends StatefulWidget {
   const WeatherArea({super.key, required this.prefectureName});
   final String prefectureName;
 
+
   @override
   State<WeatherArea> createState() => _WeatherAreaState();
 }

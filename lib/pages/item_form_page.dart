@@ -242,7 +242,6 @@ class _ItemFormPageState extends State<ItemFormPage> {
                               type: PageTransitionType.leftToRight,
                               child: ItemIndex(
                                   loginStatus: widget.loginStatus,
-                                  prefectureName: '東京',
                                   guestNumber: widget.guestNumber
                               )
                           )

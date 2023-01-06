@@ -5,18 +5,18 @@ import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
 import '../components/header.dart';
 import '../components/bottom_navigation.dart';
 import '../fixedDatas/datas.dart';
+import '../model/account.dart';
+import '../utils/authentication.dart';
 import 'item_form_page.dart';
 
 class ItemIndex extends StatefulWidget {
   const ItemIndex({
     super.key,
     required this.loginStatus,
-    required this.prefectureName,
     required this.guestNumber
   });
 
   final int loginStatus;
-  final String prefectureName;
   final int guestNumber;
 
   @override
@@ -25,7 +25,9 @@ class ItemIndex extends StatefulWidget {
 
 class _ItemIndexState extends State<ItemIndex> {
   final int currentScreenId = itemIndexId;
-  String _selectedCategoryValue = appetizerLabel;
+  late String _selectedCategoryValue;
+
+  Account myAccount = Authentication.myAccount!;
 
   // var items = itemsArray;
 
@@ -117,7 +119,7 @@ class _ItemIndexState extends State<ItemIndex> {
               ),
             ),
           ),
-          WeatherArea(prefectureName: widget.prefectureName),
+          WeatherArea(prefectureName: myAccount.prefecture),
         ],
       ),
       floatingActionButton: FloatingActionButton(
