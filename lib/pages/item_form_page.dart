@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:restaurant_talks_flutter/model/account.dart';
 import '../components/header.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -13,12 +14,14 @@ class ItemFormPage extends StatefulWidget {
     super.key,
     this.itemObject,
     required this.loginStatus,
-    required this.guestNumber
+    required this.guestNumber,
+    required this.loginUserInfo,
   });
 
   final int loginStatus;
   final int guestNumber;
   final itemObject;
+  final Account loginUserInfo;
 
   @override
   State<ItemFormPage> createState() => _ItemFormPageState();
@@ -221,7 +224,8 @@ class _ItemFormPageState extends State<ItemFormPage> {
                     onPressed: () {
 
                       // 保存時のfirebaseとの連携
-                      final newItem = <String, dynamic>{
+                      final newItem = {
+                        'accountId': widget.loginUserInfo.id,
                         'itemName': _itemNameController.text,
                         'itemDetail': _itemDetailController.text,
                         'category': category,
