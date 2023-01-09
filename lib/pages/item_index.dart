@@ -51,9 +51,8 @@ class _ItemIndexState extends State<ItemIndex> {
   // }
 
   // item一覧のList作成
-  List<Widget> getList(itemObjectList) {
+  List<Widget> getList(itemObjectList, snapshot) {
     List<Widget> listViewChildren = [];
-    print(itemObjectList);
 
     for (int i = 0; i < itemObjectList.length; i++) {
       listViewChildren.add(
@@ -70,6 +69,8 @@ class _ItemIndexState extends State<ItemIndex> {
                         loginStatus: widget.loginStatus!,
                         guestNumber: widget.guestNumber,
                         loginUserInfo: myAccount,
+                        currentScreenId: itemEditPageId,
+                        itemDocId: snapshot.data.docs[i].id,
                       )
                   ),
                 );
@@ -109,7 +110,7 @@ class _ItemIndexState extends State<ItemIndex> {
 
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
-                    // .collection('Users')
+                // .collection('Users')
                     .collection(itemCollection)
                     .where("accountId", isEqualTo: myAccount.id)
                 // .doc(myAccount.id)
@@ -141,7 +142,7 @@ class _ItemIndexState extends State<ItemIndex> {
                   if (itemObjectList.isNotEmpty) {
                     return Wrap(
                         alignment: WrapAlignment.spaceEvenly,
-                        children: getList(itemObjectList),
+                        children: getList(itemObjectList, snapshot),
                       );
                   }
 
@@ -167,6 +168,7 @@ class _ItemIndexState extends State<ItemIndex> {
                   loginStatus: widget.loginStatus,
                   guestNumber: widget.guestNumber,
                   loginUserInfo: myAccount,
+                  currentScreenId: itemNewCreatePageId,
                 )
             ),
           );

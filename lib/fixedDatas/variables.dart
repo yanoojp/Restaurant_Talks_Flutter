@@ -2,8 +2,9 @@
 const int itemIndexId = 0;
 const int chatScreenId = 1;
 const int myPageId = 2;
-const int itemFormPageId = 3;
-const int guestNumberFormId = 4;
+const int itemNewCreatePageId = 3;
+const int itemEditPageId = 4;
+const int guestNumberFormId = 5;
 
 // 数字
 const double titleFontSize = 20.0;
@@ -24,6 +25,7 @@ const String toLoginScreen = 'ログイン画面へ';
 const String saveButton = '保存する';
 const String pickAImage = '画像を選択';
 const String deleteAccount = 'アカウントを削除する';
+const String deleteItem = 'アイテムを削除する';
 
 // ラベル表示
 const String itemNameLabel = 'アイテム名';
