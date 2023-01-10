@@ -44,4 +44,12 @@ class GuestNumberFirestore {
     final gn = snapShot.docs.first.data()['guestNumber'];
     return gn;
   }
+
+  static Future<void> deleteGuestNumber(accountId) async{
+    final snapShot = await FirebaseFirestore.instance.collection('guestNumbers').where('accountId', isEqualTo: accountId).get();
+    snapShot.docs.forEach((doc) async{
+      String docId = doc.reference.id;
+      await guestNumber.doc(docId).delete();
+    });
+  }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
 import 'package:restaurant_talks_flutter/utils/authentication.dart';
+import 'package:restaurant_talks_flutter/utils/firestore/guestNumber.dart';
 import 'package:restaurant_talks_flutter/utils/firestore/users.dart';
 import '../components/bottom_navigation.dart';
 import '../components/header.dart';
@@ -158,6 +159,7 @@ class _MyPageState extends State<MyPageScreen> {
               onPressed: () {
                 UserFirestore.deleteUser(myAccount.id);
                 Authentication.deleteAccount();
+                GuestNumberFirestore.deleteGuestNumber(myAccount.id);
                 Navigator.push(
                     context,
                     PageTransition(
