@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:restaurant_talks_flutter/model/account.dart';
 import '../components/header.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import '../fixedDatas/datas.dart';
 import '../fixedDatas/variables.dart';
+import '../utils/firestore/items.dart';
 import 'item_index.dart';
 
 class ItemFormPage extends StatefulWidget {
@@ -13,12 +15,18 @@ class ItemFormPage extends StatefulWidget {
     super.key,
     this.itemObject,
     required this.loginStatus,
-    required this.guestNumber
+    required this.guestNumber,
+    required this.loginUserInfo,
+    required this.currentScreenId,
+    this.itemDocId,
   });
 
   final int loginStatus;
   final int guestNumber;
   final itemObject;
+  final Account loginUserInfo;
+  final int currentScreenId;
+  final String? itemDocId;
 
   @override
   State<ItemFormPage> createState() => _ItemFormPageState();
@@ -26,7 +34,6 @@ class ItemFormPage extends StatefulWidget {
 
 class _ItemFormPageState extends State<ItemFormPage> {
   int _counter = 0;
-  final int currentScreenId = itemFormPageId;
 
   late String itemName;
   late String itemCount;
@@ -93,7 +100,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
     return Scaffold(
         appBar: Header(
           loginStatus: widget.loginStatus,
-          currentScreenId: currentScreenId,
+          currentScreenId: widget.currentScreenId,
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -218,22 +225,34 @@ class _ItemFormPageState extends State<ItemFormPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async{
 
-                      // 保存時のfirebaseとの連携
-                      final newItem = <String, dynamic>{
+                      final editItem = {
+                        'accountId': widget.loginUserInfo.id,
                         'itemName': _itemNameController.text,
                         'itemDetail': _itemDetailController.text,
                         'category': category,
                         'itemCount': (_counter + int.parse(itemCount)).toString(),
                         'updatedAt': Timestamp.fromDate(DateTime.now()),
                       };
-                      FirebaseFirestore.instance
-                        .collection(itemCollection)
-                        .doc()
-                        .set(newItem);
-                      setState(_itemNameController.clear);
-                      setState(_itemDetailController.clear);
+
+                      if (widget.currentScreenId == itemNewCreatePageId) {
+                        var _result = await ItemFirestore.setItem(editItem);
+                        if (_result == true) {
+                          setState(_itemNameController.clear);
+                          setState(_itemDetailController.clear);
+                        } else {
+                        //  TBD
+                        }
+                      } else {
+                        var _result = await ItemFirestore.updateItem(editItem, widget.itemDocId);
+                        if (_result == true) {
+                          setState(_itemNameController.clear);
+                          setState(_itemDetailController.clear);
+                        } else {
+                          //  TBD
+                        }
+                      }
 
                       // 保存ボタン押下時の画面遷移
                       Navigator.push(
@@ -250,6 +269,24 @@ class _ItemFormPageState extends State<ItemFormPage> {
                     child: Text(saveButton),
                   )
                 ),
+                widget.currentScreenId == itemEditPageId
+                  ? TextButton(
+                      onPressed: () {
+                        ItemFirestore.deleteItem(widget.itemDocId);
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.leftToRight,
+                                child: ItemIndex(
+                                    loginStatus: widget.loginStatus,
+                                    guestNumber: widget.guestNumber
+                                )
+                            )
+                        );
+                      },
+                      child: Text(deleteItem),
+                    )
+                  : const SizedBox.shrink()
               ],
             ),
           ),

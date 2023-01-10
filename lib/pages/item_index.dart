@@ -29,6 +29,12 @@ class _ItemIndexState extends State<ItemIndex> {
 
   Account myAccount = Authentication.myAccount!;
 
+  @override
+  void initState() {
+    super.initState();
+    _selectedCategoryValue = categoriesDropdown[0].value!;
+  }
+
   // var items = itemsArray;
 
   // カテゴリーソートはflutter連携時にやると良さそうなので、保留
@@ -44,10 +50,38 @@ class _ItemIndexState extends State<ItemIndex> {
   //   return items;
   // }
 
-  @override
-  void initState() {
-    super.initState();
-    _selectedCategoryValue = categoriesDropdown[0].value!;
+  // item一覧のList作成
+  List<Widget> getList(itemObjectList, snapshot) {
+    List<Widget> listViewChildren = [];
+
+    for (int i = 0; i < itemObjectList.length; i++) {
+      listViewChildren.add(
+          Padding(
+            padding: const EdgeInsets.only(left: 5.0, right: 5),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(fixedSize: Size(100, 80)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>
+                      ItemFormPage(
+                        itemObject: itemObjectList[i],
+                        loginStatus: widget.loginStatus!,
+                        guestNumber: widget.guestNumber,
+                        loginUserInfo: myAccount,
+                        currentScreenId: itemEditPageId,
+                        itemDocId: snapshot.data.docs[i].id,
+                      )
+                  ),
+                );
+              },
+              child: Text(itemObjectList[i]['itemName']),
+            ),
+          )
+      );
+    }
+
+    return listViewChildren;
   }
 
   @override
@@ -76,7 +110,10 @@ class _ItemIndexState extends State<ItemIndex> {
 
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
+                // .collection('Users')
                     .collection(itemCollection)
+                    .where("accountId", isEqualTo: myAccount.id)
+                // .doc(myAccount.id)
                     .orderBy('updatedAt')
                     .snapshots(),
 
@@ -86,7 +123,6 @@ class _ItemIndexState extends State<ItemIndex> {
                     return const Text(
                       errorMessage,
                       textAlign: TextAlign.center,
-
                     );
                   }
                   if (!snapshot.hasData) {
@@ -106,7 +142,7 @@ class _ItemIndexState extends State<ItemIndex> {
                   if (itemObjectList.isNotEmpty) {
                     return Wrap(
                         alignment: WrapAlignment.spaceEvenly,
-                        children: getList(itemObjectList),
+                        children: getList(itemObjectList, snapshot),
                       );
                   }
 
@@ -131,6 +167,8 @@ class _ItemIndexState extends State<ItemIndex> {
                 (context) => ItemFormPage(
                   loginStatus: widget.loginStatus,
                   guestNumber: widget.guestNumber,
+                  loginUserInfo: myAccount,
+                  currentScreenId: itemNewCreatePageId,
                 )
             ),
           );
@@ -144,36 +182,4 @@ class _ItemIndexState extends State<ItemIndex> {
       ),
     );
   }
-
-  // item一覧のList作成
-  List<Widget> getList(itemObjectList) {
-    List<Widget> listViewChildren = [];
-
-    for (int i = 0; i < itemObjectList.length; i++) {
-      listViewChildren.add(
-          Padding(
-            padding: const EdgeInsets.only(left: 5.0, right: 5),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(fixedSize: Size(100, 80)),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>
-                    ItemFormPage(
-                      itemObject: itemObjectList[i],
-                      loginStatus: widget.loginStatus!,
-                      guestNumber: widget.guestNumber,
-                    )
-                  ),
-                );
-              },
-              child: Text(itemObjectList[i]['itemName']),
-            ),
-          )
-      );
-    }
-
-    return listViewChildren;
-  }
-
 }

@@ -50,12 +50,14 @@ class _HeaderState extends State<Header> {
     return AppBar(
       automaticallyImplyLeading: false,
       leading:
-        widget.currentScreenId == itemFormPageId || widget.currentScreenId == guestNumberFormId
+        widget.currentScreenId == itemNewCreatePageId
+            || widget.currentScreenId == itemEditPageId
+            || widget.currentScreenId == guestNumberFormId
           ? IconButton(
-          onPressed: (){Navigator.of(context).pop();},
-          icon: const Icon(Icons.arrow_back)
-      )
-          : null,
+              onPressed: (){Navigator.of(context).pop();},
+              icon: const Icon(Icons.arrow_back)
+            )
+          : const SizedBox.shrink(),
       title: Text(appTitle),
       actions: [
         Padding(
