@@ -10,13 +10,11 @@ class BottomNavigation extends StatefulWidget {
     super.key,
     required this.screenId,
     required this.loginStatus,
-    required this.guestNumber,
     required this.currentScreenId,
   });
 
   final int screenId;
   final int loginStatus;
-  final int guestNumber;
   final int currentScreenId;
 
   @override
@@ -41,7 +39,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
               type: PageTransitionType.leftToRight,
               child: ItemIndex(
                 loginStatus: widget.loginStatus,
-                guestNumber: widget.guestNumber,
               ),
               isIos: true,
             )
@@ -53,7 +50,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
               MaterialPageRoute(builder: (context) =>
                   ChatScreen(
                     loginStatus: widget.loginStatus,
-                    guestNumber: widget.guestNumber,
                   )
               ),
             );
@@ -64,7 +60,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
                   type: PageTransitionType.leftToRight,
                   child: ChatScreen(
                     loginStatus: widget.loginStatus,
-                    guestNumber: widget.guestNumber,
                   ),
                   isIos: true,
                 )
@@ -76,7 +71,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
             MaterialPageRoute(builder: (context) =>
                 MyPageScreen(
                   loginStatus: widget.loginStatus,
-                  guestNumber: widget.guestNumber,
                 )
             ),
           );

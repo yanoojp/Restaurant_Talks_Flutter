@@ -15,18 +15,16 @@ class ItemFormPage extends StatefulWidget {
     super.key,
     this.itemObject,
     required this.loginStatus,
-    required this.guestNumber,
     required this.loginUserInfo,
     required this.currentScreenId,
-    this.itemDocId,
+    this.itemUserDocId,
   });
 
   final int loginStatus;
-  final int guestNumber;
   final itemObject;
   final Account loginUserInfo;
   final int currentScreenId;
-  final String? itemDocId;
+  final String? itemUserDocId;
 
   @override
   State<ItemFormPage> createState() => _ItemFormPageState();
@@ -245,7 +243,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                         //  TBD
                         }
                       } else {
-                        var _result = await ItemFirestore.updateItem(editItem, widget.itemDocId);
+                        var _result = await ItemFirestore.updateItem(editItem, widget.itemUserDocId);
                         if (_result == true) {
                           setState(_itemNameController.clear);
                           setState(_itemDetailController.clear);
@@ -261,7 +259,6 @@ class _ItemFormPageState extends State<ItemFormPage> {
                               type: PageTransitionType.leftToRight,
                               child: ItemIndex(
                                   loginStatus: widget.loginStatus,
-                                  guestNumber: widget.guestNumber
                               )
                           )
                       );
@@ -272,14 +269,13 @@ class _ItemFormPageState extends State<ItemFormPage> {
                 widget.currentScreenId == itemEditPageId
                   ? TextButton(
                       onPressed: () {
-                        ItemFirestore.deleteItem(widget.itemDocId);
+                        ItemFirestore.deleteItem(widget.itemUserDocId);
                         Navigator.push(
                             context,
                             PageTransition(
                                 type: PageTransitionType.leftToRight,
                                 child: ItemIndex(
                                     loginStatus: widget.loginStatus,
-                                    guestNumber: widget.guestNumber
                                 )
                             )
                         );

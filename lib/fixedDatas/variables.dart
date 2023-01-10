@@ -59,4 +59,5 @@ const String noDataMessage = 'まだデータがありません';
 
 // firebase関連
 const String itemCollection  = 'Items';
+const String guestNumberCollection  = 'guestNumbers';
 

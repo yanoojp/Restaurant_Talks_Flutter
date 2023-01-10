@@ -13,11 +13,9 @@ class ItemIndex extends StatefulWidget {
   const ItemIndex({
     super.key,
     required this.loginStatus,
-    required this.guestNumber
   });
 
   final int loginStatus;
-  final int guestNumber;
 
   @override
   State<ItemIndex> createState() => _ItemIndexState();
@@ -67,10 +65,9 @@ class _ItemIndexState extends State<ItemIndex> {
                       ItemFormPage(
                         itemObject: itemObjectList[i],
                         loginStatus: widget.loginStatus!,
-                        guestNumber: widget.guestNumber,
                         loginUserInfo: myAccount,
                         currentScreenId: itemEditPageId,
-                        itemDocId: snapshot.data.docs[i].id,
+                        itemUserDocId: snapshot.data.docs[i].id,
                       )
                   ),
                 );
@@ -166,7 +163,6 @@ class _ItemIndexState extends State<ItemIndex> {
             MaterialPageRoute(builder:
                 (context) => ItemFormPage(
                   loginStatus: widget.loginStatus,
-                  guestNumber: widget.guestNumber,
                   loginUserInfo: myAccount,
                   currentScreenId: itemNewCreatePageId,
                 )
@@ -177,7 +173,6 @@ class _ItemIndexState extends State<ItemIndex> {
       bottomNavigationBar: BottomNavigation(
         screenId: currentScreenId,
         loginStatus: widget.loginStatus,
-        guestNumber: widget.guestNumber,
         currentScreenId: currentScreenId,
       ),
     );

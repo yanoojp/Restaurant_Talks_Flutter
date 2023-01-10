@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/utils/authentication.dart';
+import 'package:restaurant_talks_flutter/utils/firestore/guestNumber.dart';
 import '../fixedDatas/variables.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
+import '../model/account.dart';
 import '../pages/guest_number_form.dart';
 import '../pages/login_page.dart';
 
@@ -27,21 +27,15 @@ class Header extends StatefulWidget implements PreferredSizeWidget{
 class _HeaderState extends State<Header> {
   late int guestNumber;
   late Future<int> gn;
-
-  /// Firestoreから値を取得する
-  Future<int> getGuestNumber() async {
-    final snapShot = await FirebaseFirestore.instance.collection('GuestNumber').get();
-    final guestNumber = snapShot.docs.first.data()['guestNumber'];
-    return guestNumber;
-  }
+  Account myAccount = Authentication.myAccount!;
 
   @override
   void initState() {
     super.initState();
 
-    gn = getGuestNumber();
+    gn = GuestNumberFirestore.getGuestNumber(myAccount.id);
     gn.then((value) => {
-      guestNumber = value,
+        guestNumber = value,
     });
   }
 
@@ -85,12 +79,12 @@ class _HeaderState extends State<Header> {
                     textAlign: TextAlign.center,
                   ),
                 );
+              } else {
+                return Text(
+                  '$leftNumber:\n$gettingData',
+                  textAlign: TextAlign.center,
+                );
               }
-
-              return Text(
-                '$leftNumber:\n$gettingData',
-                textAlign: TextAlign.center,
-              );
             }
           ),
         ),
