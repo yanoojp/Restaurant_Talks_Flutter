@@ -55,7 +55,7 @@ class _ItemIndexState extends State<ItemIndex> {
     for (int i = 0; i < itemObjectList.length; i++) {
       listViewChildren.add(
           Padding(
-            padding: const EdgeInsets.only(left: 5.0, right: 5),
+            padding: const EdgeInsets.all(10.0),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(fixedSize: Size(100, 80)),
               onPressed: () {
