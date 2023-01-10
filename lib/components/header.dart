@@ -5,6 +5,7 @@ import '../fixedDatas/variables.dart';
 import 'package:page_transition/page_transition.dart';
 import '../model/account.dart';
 import '../pages/guest_number_form.dart';
+import '../pages/item_index.dart';
 import '../pages/login_page.dart';
 
 class Header extends StatefulWidget implements PreferredSizeWidget{
@@ -48,7 +49,17 @@ class _HeaderState extends State<Header> {
             || widget.currentScreenId == itemEditPageId
             || widget.currentScreenId == guestNumberFormId
           ? IconButton(
-              onPressed: (){Navigator.of(context).pop();},
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.leftToRight,
+                        child: ItemIndex(
+                          loginStatus: widget.loginStatus,
+                        )
+                    )
+                );
+              },
               icon: const Icon(Icons.arrow_back)
             )
           : const SizedBox.shrink(),
