@@ -17,9 +17,8 @@ String randomString() {
 
 class ChatScreen extends StatefulWidget {
   // キッチン、ホールでチャット画面を切り替えるためのloginStatusは各画面から送ってあります。
-  const ChatScreen({super.key, required this.loginStatus, required this.guestNumber});
+  const ChatScreen({super.key, required this.loginStatus});
   final int loginStatus;
-  final int guestNumber;
 
   @override
   ChatScreenState createState() => ChatScreenState();
@@ -70,7 +69,6 @@ class ChatScreenState extends State<ChatScreen> {
     bottomNavigationBar: BottomNavigation(
       screenId: currentScreenId,
       loginStatus: widget.loginStatus,
-      guestNumber: widget.guestNumber,
       currentScreenId: currentScreenId,
     ),
   );

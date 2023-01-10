@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/pages/login_page.dart';
 import 'package:restaurant_talks_flutter/utils/authentication.dart';
+import 'package:restaurant_talks_flutter/utils/firestore/guestNumber.dart';
 import 'package:restaurant_talks_flutter/utils/firestore/users.dart';
 import '../fixedDatas/datas.dart';
 import '../fixedDatas/variables.dart';
@@ -175,12 +176,14 @@ class _SignUpState extends State<SignUp> {
                             var _result = await UserFirestore.setUser(newAccount, email);
                             if (_result == true) {
                               Authentication.myAccount = newAccount;
+
+                              await GuestNumberFirestore.setGuestNumber(result.user!.uid);
+
                               if (!mounted) return;
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => ItemIndex(
                                     loginStatus: _selectedPositionValue,
-                                    guestNumber: 0,
                                 )),
                               );
                             }

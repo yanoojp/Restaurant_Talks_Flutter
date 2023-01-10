@@ -48,9 +48,8 @@ class _WeatherAreaState extends State<WeatherArea> {
                 return Text(
                   '$weatherOutside：$currentWeather',
                 );
-              } else {
-                return const Text("$weatherOutside：$gettingData");
               }
+              return const Text("$weatherOutside：$gettingData");
             }
         ),
       ),

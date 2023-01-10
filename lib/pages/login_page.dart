@@ -130,7 +130,6 @@ class _LoginPageState extends State<LoginPage> {
                               MaterialPageRoute(builder: (context) =>
                                   ItemIndex(
                                     loginStatus: _selectedPositionValue,
-                                    guestNumber: 0,
                                   )
                               ),
                             );

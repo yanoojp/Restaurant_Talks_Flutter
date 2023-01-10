@@ -1,9 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:restaurant_talks_flutter/utils/firestore/guestNumber.dart';
 import '../components/header.dart';
 import '../fixedDatas/variables.dart';
+import '../model/account.dart';
+import '../utils/authentication.dart';
 import 'item_index.dart';
 
 class GuestNumberForm extends StatefulWidget {
@@ -18,6 +20,12 @@ class GuestNumberForm extends StatefulWidget {
 class _GuestNumberFormState extends State<GuestNumberForm> {
   final int currentScreenId = guestNumberFormId;
   final TextEditingController guestNumberController = TextEditingController();
+  Account myAccount = Authentication.myAccount!;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,14 +84,8 @@ class _GuestNumberFormState extends State<GuestNumberForm> {
               ),
             ),
             ElevatedButton(
-              onPressed: () {
-                final document = <String, dynamic>{
-                  'guestNumber': guestNumberController.text,
-                };
-                FirebaseFirestore.instance
-                    .collection('GuestNumber')
-                    .doc()
-                    .set(document);
+              onPressed: () async{
+                await GuestNumberFirestore.updateGuestNumber(guestNumber, myAccount.id);
                 setState(guestNumberController.clear);
 
                 Navigator.push(
@@ -92,7 +94,6 @@ class _GuestNumberFormState extends State<GuestNumberForm> {
                         type: PageTransitionType.leftToRight,
                         child: ItemIndex(
                             loginStatus: widget.loginStatus,
-                            guestNumber: guestNumber
                         )
                     )
                 );

@@ -12,9 +12,8 @@ import 'item_index.dart';
 import 'login_page.dart';
 
 class MyPageScreen extends StatefulWidget {
-  const MyPageScreen({super.key, required this.loginStatus, required this.guestNumber});
+  const MyPageScreen({super.key, required this.loginStatus});
   final int loginStatus;
-  final int guestNumber;
 
   @override
   State<MyPageScreen> createState() => _MyPageState();
@@ -148,7 +147,6 @@ class _MyPageState extends State<MyPageScreen> {
                           type: PageTransitionType.leftToRight,
                           child: ItemIndex(
                               loginStatus: widget.loginStatus,
-                              guestNumber: widget.guestNumber
                           )
                       )
                   );
@@ -177,7 +175,6 @@ class _MyPageState extends State<MyPageScreen> {
       bottomNavigationBar: BottomNavigation(
         screenId: currentScreenId,
         loginStatus: widget.loginStatus,
-        guestNumber: widget.guestNumber,
         currentScreenId: currentScreenId,
       ),
     );
