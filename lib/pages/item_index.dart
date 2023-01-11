@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/components/weather_area.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
-import '../components/header.dart';
+
 import '../components/bottom_navigation.dart';
+import '../components/header.dart';
 import '../fixedDatas/datas.dart';
 import '../model/account.dart';
 import '../utils/authentication.dart';
@@ -50,32 +51,29 @@ class _ItemIndexState extends State<ItemIndex> {
 
   // item一覧のList作成
   List<Widget> getList(itemObjectList, snapshot) {
-    List<Widget> listViewChildren = [];
+    final listViewChildren = <Widget>[];
 
-    for (int i = 0; i < itemObjectList.length; i++) {
-      listViewChildren.add(
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(fixedSize: Size(100, 80)),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>
-                      ItemFormPage(
+    for (var i = 0; i < itemObjectList.length; i++) {
+      listViewChildren.add(Padding(
+        padding: const EdgeInsets.all(10),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(fixedSize: const Size(100, 80)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ItemFormPage(
                         itemObject: itemObjectList[i],
-                        loginStatus: widget.loginStatus!,
+                        loginStatus: widget.loginStatus,
                         loginUserInfo: myAccount,
                         currentScreenId: itemEditPageId,
                         itemUserDocId: snapshot.data.docs[i].id,
-                      )
-                  ),
-                );
-              },
-              child: Text(itemObjectList[i]['itemName']),
-            ),
-          )
-      );
+                      ),),
+            );
+          },
+          child: Text(itemObjectList[i]['itemName']),
+        ),
+      ),);
     }
 
     return listViewChildren;
@@ -85,8 +83,8 @@ class _ItemIndexState extends State<ItemIndex> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Header(
-          loginStatus: widget.loginStatus,
-          currentScreenId: currentScreenId,
+        loginStatus: widget.loginStatus,
+        currentScreenId: currentScreenId,
       ),
       body: Column(
         children: [
@@ -100,22 +98,19 @@ class _ItemIndexState extends State<ItemIndex> {
             },
           ),
           Container(
-            padding: const EdgeInsets.only(top: 10.0),
+            padding: const EdgeInsets.only(top: 10),
             height: MediaQuery.of(context).size.height / 100 * 60,
             width: MediaQuery.of(context).size.width,
             child: SingleChildScrollView(
-
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
-                // .collection('Users')
+                    // .collection('Users')
                     .collection(itemCollection)
-                    .where("accountId", isEqualTo: myAccount.id)
-                // .doc(myAccount.id)
+                    .where('accountId', isEqualTo: myAccount.id)
+                    // .doc(myAccount.id)
                     .orderBy('updatedAt')
                     .snapshots(),
-
                 builder: (context, snapshot) {
-
                   if (snapshot.hasError) {
                     return const Text(
                       errorMessage,
@@ -128,9 +123,8 @@ class _ItemIndexState extends State<ItemIndex> {
 
                   final items = snapshot.requireData.docs
                       .map((DocumentSnapshot document) {
-                    final documentData =
-                    document.data()!;
-                    return documentData!;
+                    final documentData = document.data()!;
+                    return documentData;
                   }).toList();
 
                   final itemObjectList = items.reversed.toList();
@@ -138,9 +132,9 @@ class _ItemIndexState extends State<ItemIndex> {
                   // 一覧の表示
                   if (itemObjectList.isNotEmpty) {
                     return Wrap(
-                        alignment: WrapAlignment.spaceEvenly,
-                        children: getList(itemObjectList, snapshot),
-                      );
+                      alignment: WrapAlignment.spaceEvenly,
+                      children: getList(itemObjectList, snapshot),
+                    );
                   }
 
                   // データがない場合
@@ -160,13 +154,12 @@ class _ItemIndexState extends State<ItemIndex> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder:
-                (context) => ItemFormPage(
-                  loginStatus: widget.loginStatus,
-                  loginUserInfo: myAccount,
-                  currentScreenId: itemNewCreatePageId,
-                )
-            ),
+            MaterialPageRoute(
+                builder: (context) => ItemFormPage(
+                      loginStatus: widget.loginStatus,
+                      loginUserInfo: myAccount,
+                      currentScreenId: itemNewCreatePageId,
+                    ),),
           );
         },
       ),

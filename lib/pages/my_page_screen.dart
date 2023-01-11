@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
@@ -27,7 +26,8 @@ class _MyPageState extends State<MyPageScreen> {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController hotelnameController = TextEditingController();
-  TextEditingController nameOfRepresentativeController = TextEditingController();
+  TextEditingController nameOfRepresentativeController =
+      TextEditingController();
 
   @override
   void initState() {
@@ -36,9 +36,8 @@ class _MyPageState extends State<MyPageScreen> {
     myAccount = Authentication.myAccount!;
     emailController = TextEditingController(text: myAccount.email);
     hotelnameController = TextEditingController(text: myAccount.hotelName);
-    nameOfRepresentativeController = TextEditingController(
-        text: myAccount.nameOfRepresentative
-    );
+    nameOfRepresentativeController =
+        TextEditingController(text: myAccount.nameOfRepresentative);
     selectedPrefectureValue = myAccount.prefecture;
   }
 
@@ -50,11 +49,11 @@ class _MyPageState extends State<MyPageScreen> {
         currentScreenId: currentScreenId,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 30.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 30),
               child: Text(
                 myPageScreen,
                 textAlign: TextAlign.left,
@@ -63,7 +62,7 @@ class _MyPageState extends State<MyPageScreen> {
                 ),
               ),
             ),
-            Container(
+            const SizedBox(
               width: double.infinity,
               child: Text(
                 emailLabel,
@@ -79,7 +78,7 @@ class _MyPageState extends State<MyPageScreen> {
             Container(
               padding: const EdgeInsets.only(top: 20),
               width: double.infinity,
-              child: Text(
+              child: const Text(
                 hotelNameLabel,
                 textAlign: TextAlign.left,
               ),
@@ -93,7 +92,7 @@ class _MyPageState extends State<MyPageScreen> {
             Container(
               padding: const EdgeInsets.only(top: 20),
               width: double.infinity,
-              child: Text(
+              child: const Text(
                 nameOfRepresentativeLabel,
                 textAlign: TextAlign.left,
               ),
@@ -106,33 +105,33 @@ class _MyPageState extends State<MyPageScreen> {
             ),
             /* 都道府県選択ドロップダウン　*/
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
+                  const SizedBox(
                       width: 115,
-                      child: Text(choosePrefecture, textAlign: TextAlign.center,)
-                  ),
+                      child: Text(
+                        choosePrefecture,
+                        textAlign: TextAlign.center,
+                      ),),
                   DropdownButton(
                       items: prefectures
-                          .map((list) => DropdownMenuItem(
-                          value: list,
-                          child: Text(list)
-                      )).toList(),
+                          .map((list) =>
+                              DropdownMenuItem(value: list, child: Text(list)),)
+                          .toList(),
                       value: selectedPrefectureValue,
                       onChanged: (String? value) {
                         setState(() {
                           selectedPrefectureValue = value!;
                         });
-                      }
-                  )
+                      },)
                 ],
               ),
             ),
             ElevatedButton(
-              onPressed: () async{
-                Account updateAccount = Account(
+              onPressed: () async {
+                final updateAccount = Account(
                   id: myAccount.id,
                   email: emailController.text,
                   hotelName: hotelnameController.text,
@@ -140,20 +139,18 @@ class _MyPageState extends State<MyPageScreen> {
                   prefecture: selectedPrefectureValue,
                 );
                 Authentication.myAccount = updateAccount;
-                var result = await UserFirestore.updateUser(updateAccount);
+                final result = await UserFirestore.updateUser(updateAccount);
                 if (result == true) {
-                  Navigator.push(
+                  await Navigator.push(
                       context,
                       PageTransition(
                           type: PageTransitionType.leftToRight,
                           child: ItemIndex(
-                              loginStatus: widget.loginStatus,
-                          )
-                      )
-                  );
+                            loginStatus: widget.loginStatus,
+                          ),),);
                 }
               },
-              child: Text(saveButton),
+              child: const Text(saveButton),
             ),
             TextButton(
               onPressed: () {
@@ -164,12 +161,11 @@ class _MyPageState extends State<MyPageScreen> {
                     context,
                     PageTransition(
                       type: PageTransitionType.leftToRight,
-                      child: LoginPage(),
+                      child: const LoginPage(),
                       isIos: true,
-                    )
-                );
+                    ),);
               },
-              child: Text(deleteAccount),
+              child: const Text(deleteAccount),
             ),
           ],
         ),

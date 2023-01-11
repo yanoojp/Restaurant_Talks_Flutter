@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
 
-import '../components/header.dart';
 import '../components/bottom_navigation.dart';
+import '../components/header.dart';
 
 String randomString() {
   final random = Random.secure();
@@ -30,7 +31,7 @@ class ChatScreenState extends State<ChatScreen> {
   final List<types.Message> _messages = [];
   final _user = const types.User(id: '82091008-a484-4a89-ae75-a22bf8d6f3ac');
 
-  void _handleImageSelection() async {
+  Future<void> _handleImageSelection() async {
     final pickedImage = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
@@ -56,22 +57,22 @@ class ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: Header(
-      loginStatus: widget.loginStatus,
-      currentScreenId: currentScreenId,
-    ),
-    body: Chat(
-      user: _user,
-      messages: _messages,
-      onAttachmentPressed: _handleImageSelection,
-      onSendPressed: _handleSendPressed,
-    ),
-    bottomNavigationBar: BottomNavigation(
-      screenId: currentScreenId,
-      loginStatus: widget.loginStatus,
-      currentScreenId: currentScreenId,
-    ),
-  );
+        appBar: Header(
+          loginStatus: widget.loginStatus,
+          currentScreenId: currentScreenId,
+        ),
+        body: Chat(
+          user: _user,
+          messages: _messages,
+          onAttachmentPressed: _handleImageSelection,
+          onSendPressed: _handleSendPressed,
+        ),
+        bottomNavigationBar: BottomNavigation(
+          screenId: currentScreenId,
+          loginStatus: widget.loginStatus,
+          currentScreenId: currentScreenId,
+        ),
+      );
 
   void _addMessage(types.Message message) {
     setState(() {

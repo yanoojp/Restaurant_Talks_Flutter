@@ -1,12 +1,6 @@
 import '../fixedDatas/variables.dart';
 
 class Item {
-  String accountId;
-  String itenName;
-  String itemCount;
-  String itemCategory;
-  String itemDetail;
-  DateTime updatedAt;
 
   Item({
     this.accountId = '',
@@ -16,4 +10,10 @@ class Item {
     this.itemDetail = '',
     required this.updatedAt,
   });
+  String accountId;
+  String itenName;
+  String itemCount;
+  String itemCategory;
+  String itemDetail;
+  DateTime updatedAt;
 }

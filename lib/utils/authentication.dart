@@ -6,43 +6,35 @@ class Authentication {
   static User? currentFirebaseUser;
   static Account? myAccount;
 
-  static Future<dynamic> signUp({
-    required String email,
-    required String password
-  }) async{
+  static Future<dynamic> signUp(
+      {required String email, required String password,}) async {
     try {
-      UserCredential newAccount = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password
-      );
+      final newAccount = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
       currentFirebaseUser = newAccount.user;
       return newAccount;
-    } on FirebaseAuthException catch(e) {
+    } on FirebaseAuthException {
       return false;
     }
   }
 
-  static Future<dynamic> login({
-    required String email,
-    required String password
-  }) async{
+  static Future<dynamic> login(
+      {required String email, required String password,}) async {
     try {
-      final UserCredential _result = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password
-      );
-      currentFirebaseUser = _result.user;
-      return _result;
-    } on FirebaseAuthException catch(e) {
+      final result = await _firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: password);
+      currentFirebaseUser = result.user;
+      return result;
+    } on FirebaseAuthException {
       return false;
     }
   }
 
-  static Future<void> deleteAccount() async{
+  static Future<void> deleteAccount() async {
     await currentFirebaseUser!.delete();
   }
 
-  static Future<void> logout() async{
+  static Future<void> logout() async {
     await _firebaseAuth.signOut();
   }
 }
