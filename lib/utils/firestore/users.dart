@@ -4,9 +4,10 @@ import '../../model/account.dart';
 
 class UserFirestore {
   static final _firestoreInstance = FirebaseFirestore.instance;
-  static final CollectionReference users = _firestoreInstance.collection('Users');
+  static final CollectionReference users =
+      _firestoreInstance.collection('Users');
 
-  static Future<bool> setUser(Account newAccount, String email) async{
+  static Future<bool> setUser(Account newAccount, String email) async {
     try {
       await users.doc(newAccount.id).set({
         'hotelName': newAccount.hotelName,
@@ -15,16 +16,17 @@ class UserFirestore {
         'prefecture': newAccount.prefecture,
       });
       return true;
-    } on FirebaseException catch(e) {
+    } on FirebaseException {
       return false;
     }
   }
 
-  static Future<dynamic> getUser(String uid, String email) async{
+  static Future<dynamic> getUser(String uid, String email) async {
     try {
-      DocumentSnapshot documentSnapshot = await users.doc(uid).get();
-      Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
-      Account myAccount = Account(
+      final documentSnapshot = await users.doc(uid).get();
+      final data =
+          documentSnapshot.data() as Map<String, dynamic>;
+      final myAccount = Account(
         id: uid,
         email: email,
         hotelName: data['hotelName'],
@@ -34,12 +36,12 @@ class UserFirestore {
 
       Authentication.myAccount = myAccount;
       return myAccount;
-    } on FirebaseException catch(e) {
+    } on FirebaseException {
       return false;
     }
   }
 
-  static Future<bool> updateUser(Account updateAccount) async{
+  static Future<bool> updateUser(Account updateAccount) async {
     try {
       await users.doc(updateAccount.id).update({
         'hotelName': updateAccount.hotelName,
@@ -48,12 +50,12 @@ class UserFirestore {
         'prefecture': updateAccount.prefecture,
       });
       return true;
-    } on FirebaseException catch(e) {
+    } on FirebaseException {
       return false;
     }
   }
 
-  static Future<dynamic> deleteUser(String accountId) async{
-    users.doc(accountId).delete();
+  static Future<dynamic> deleteUser(String accountId) async {
+    await users.doc(accountId).delete();
   }
 }

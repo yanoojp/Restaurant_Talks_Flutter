@@ -66,7 +66,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '285311339049',
     projectId: 'restaurant-talks-flutter',
     storageBucket: 'restaurant-talks-flutter.appspot.com',
-    iosClientId: '285311339049-rj8hil4ss5fps6f0fdq3lh5mp1d41g5e.apps.googleusercontent.com',
+    iosClientId:
+        '285311339049-rj8hil4ss5fps6f0fdq3lh5mp1d41g5e.apps.googleusercontent.com',
     iosBundleId: 'com.example.restaurantTalksFlutter',
   );
 
@@ -76,7 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '285311339049',
     projectId: 'restaurant-talks-flutter',
     storageBucket: 'restaurant-talks-flutter.appspot.com',
-    iosClientId: '285311339049-rj8hil4ss5fps6f0fdq3lh5mp1d41g5e.apps.googleusercontent.com',
+    iosClientId:
+        '285311339049-rj8hil4ss5fps6f0fdq3lh5mp1d41g5e.apps.googleusercontent.com',
     iosBundleId: 'com.example.restaurantTalksFlutter',
   );
 }

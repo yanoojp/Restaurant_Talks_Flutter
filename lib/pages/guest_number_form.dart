@@ -9,7 +9,11 @@ import '../utils/authentication.dart';
 import 'item_index.dart';
 
 class GuestNumberForm extends StatefulWidget {
-  const GuestNumberForm({super.key, required this.guestNumber, required this.loginStatus,});
+  const GuestNumberForm({
+    super.key,
+    required this.guestNumber,
+    required this.loginStatus,
+  });
   final int guestNumber;
   final int loginStatus;
 
@@ -29,7 +33,7 @@ class _GuestNumberFormState extends State<GuestNumberForm> {
 
   @override
   Widget build(BuildContext context) {
-    int guestNumber = widget.guestNumber;
+    var guestNumber = widget.guestNumber;
 
     return Scaffold(
       appBar: Header(
@@ -43,36 +47,38 @@ class _GuestNumberFormState extends State<GuestNumberForm> {
             const Text(
               guestNumberLabel,
               style: TextStyle(
-                fontSize: titleFontSize,
-                color: Colors.black,
-                decoration: TextDecoration.none
-              ),
+                  fontSize: titleFontSize,
+                  color: Colors.black,
+                  decoration: TextDecoration.none,),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 70.0,),
+              padding: const EdgeInsets.only(
+                top: 10,
+                bottom: 70,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 100,
                     child: TextField(
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                        style: const TextStyle(
-                          fontSize: titleFontSize + 30,
-                        ),
-                        decoration: InputDecoration(
-                          hintText: (widget.guestNumber).toString(),
-                          hintStyle: TextStyle(fontSize: 30),
-                        ),
-                        onChanged: (val) {
-                          guestNumber = int.parse(val);
-                        },
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      style: const TextStyle(
+                        fontSize: titleFontSize + 30,
                       ),
+                      decoration: InputDecoration(
+                        hintText: (widget.guestNumber).toString(),
+                        hintStyle: const TextStyle(fontSize: 30),
+                      ),
+                      onChanged: (val) {
+                        guestNumber = int.parse(val);
+                      },
+                    ),
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(left: 10.0),
+                    padding: EdgeInsets.only(left: 10),
                     child: Text(
                       peopleUnit,
                       style: TextStyle(
@@ -84,21 +90,20 @@ class _GuestNumberFormState extends State<GuestNumberForm> {
               ),
             ),
             ElevatedButton(
-              onPressed: () async{
-                await GuestNumberFirestore.updateGuestNumber(guestNumber, myAccount.id);
+              onPressed: () async {
+                await GuestNumberFirestore.updateGuestNumber(
+                    guestNumber, myAccount.id,);
                 setState(guestNumberController.clear);
 
-                Navigator.push(
+                await Navigator.push(
                     context,
                     PageTransition(
                         type: PageTransitionType.leftToRight,
                         child: ItemIndex(
-                            loginStatus: widget.loginStatus,
-                        )
-                    )
-                );
+                          loginStatus: widget.loginStatus,
+                        ),),);
               },
-              child: Text(saveButton),
+              child: const Text(saveButton),
             ),
           ],
         ),

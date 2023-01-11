@@ -7,7 +7,7 @@ const int itemEditPageId = 4;
 const int guestNumberFormId = 5;
 
 // 数字
-const double titleFontSize = 20.0;
+const double titleFontSize = 20;
 
 // 画面タイトル
 const String appTitle = 'Restaurant Talks';
@@ -58,6 +58,5 @@ const String errorMessage = 'エラーが発生しました';
 const String noDataMessage = 'まだデータがありません';
 
 // firebase関連
-const String itemCollection  = 'Items';
-const String guestNumberCollection  = 'guestNumbers';
-
+const String itemCollection = 'Items';
+const String guestNumberCollection = 'guestNumbers';

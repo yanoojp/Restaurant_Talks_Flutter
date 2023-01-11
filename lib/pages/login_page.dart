@@ -21,7 +21,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  List<DropdownMenuItem<int>> _items = [];
+  final List<DropdownMenuItem<int>> _items = [];
   int _selectedPositionValue = 0;
 
   TextEditingController emailController = TextEditingController();
@@ -37,122 +37,123 @@ class _LoginPageState extends State<LoginPage> {
   void setItems() {
     _items
       ..add(const DropdownMenuItem(
-        child: Text(kitchen),
         value: 1,
-      ))
+        child: Text(kitchen),
+      ),)
       ..add(const DropdownMenuItem(
-        child: Text(hall),
         value: 2,
-      ));
+        child: Text(hall),
+      ),);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                  loginScreen,
-                  style: TextStyle(
-                    fontSize: titleFontSize,
-                  ),
+      padding: const EdgeInsets.all(20),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: Text(
+                loginScreen,
+                style: TextStyle(
+                  fontSize: titleFontSize,
                 ),
               ),
-              Container(
-                width: double.infinity,
-                child: Text(
-                  emailLabel,
-                  textAlign: TextAlign.left,
-                ),
+            ),
+            const SizedBox(
+              width: double.infinity,
+              child: Text(
+                emailLabel,
+                textAlign: TextAlign.left,
               ),
-              TextField(
-                controller: emailController,
+            ),
+            TextField(
+              controller: emailController,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 20),
+            ),
+            const SizedBox(
+              width: double.infinity,
+              child: Text(
+                passwordLabel,
+                textAlign: TextAlign.left,
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 20.0),
+            ),
+            TextField(
+              controller: passwordController,
+              obscureText: true,
+            ),
+            /* ポジション選択ドロップダウン　*/
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const SizedBox(
+                      width: 115,
+                      child: Text(
+                        choosePosition,
+                        textAlign: TextAlign.center,
+                      ),),
+                  DropdownButton(
+                    items: _items,
+                    value: _selectedPositionValue,
+                    onChanged: (value) => {
+                      setState(() {
+                        _selectedPositionValue = value!;
+                      }),
+                    },
+                  )
+                ],
               ),
-              Container(
-                width: double.infinity,
-                child: Text(
-                  passwordLabel,
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              TextField(
-                controller: passwordController,
-                obscureText: true,
-              ),
-              /* ポジション選択ドロップダウン　*/
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                        width: 115,
-                        child: const Text(choosePosition, textAlign: TextAlign.center,)
-                    ),
-                    DropdownButton(
-                      items: _items,
-                      value: _selectedPositionValue,
-                      onChanged: (value) => {
-                        setState(() {
-                          _selectedPositionValue = value!;
-                        }),
-                      },
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Column(
-                  children: [
-                    ElevatedButton(
-                      child: const Text(loginButton),
-                      onPressed: () async{
-                        var result = await Authentication.login(
-                        email: emailController.text,
-                        password: passwordController.text
-                        );
-                        if (result is UserCredential) {
-                          var _loggedInUserInformation = await UserFirestore.getUser(result.user!.uid, result.user!.email!);
-                          if (_loggedInUserInformation != false) {
-                            if (!mounted) return;
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) =>
-                                  ItemIndex(
-                                    loginStatus: _selectedPositionValue,
-                                  )
-                              ),
-                            );
-                          }
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    child: const Text(loginButton),
+                    onPressed: () async {
+                      final result = await Authentication.login(
+                          email: emailController.text,
+                          password: passwordController.text,);
+                      if (result is UserCredential) {
+                        final loggedInUserInformation =
+                            await UserFirestore.getUser(
+                                result.user!.uid, result.user!.email!,);
+                        if (loggedInUserInformation != false) {
+                          if (!mounted) return;
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ItemIndex(
+                                      loginStatus: _selectedPositionValue,
+                                    ),),
+                          );
                         }
-                      },
-                    ),
-                    ElevatedButton(
-                      child: const Text(toSignUpScreen),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SignUp()),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                      }
+                    },
+                  ),
+                  ElevatedButton(
+                    child: const Text(toSignUpScreen),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SignUp()),
+                      );
+                    },
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      )
-    );
+      ),
+    ),);
   }
 }

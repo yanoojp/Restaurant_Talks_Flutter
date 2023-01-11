@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:weather/weather.dart';
-import '../fixedDatas/variables.dart';
+
 import '../fixedDatas/api_keys.dart';
+import '../fixedDatas/variables.dart';
 
 class WeatherArea extends StatefulWidget {
   const WeatherArea({super.key, required this.prefectureName});
   final String prefectureName;
-
 
   @override
   State<WeatherArea> createState() => _WeatherAreaState();
@@ -14,12 +14,13 @@ class WeatherArea extends StatefulWidget {
 
 class _WeatherAreaState extends State<WeatherArea> {
   late String cityName;
-  WeatherFactory wf = WeatherFactory(weatherApiKey, language: Language.JAPANESE);
+  WeatherFactory wf =
+      WeatherFactory(weatherApiKey, language: Language.JAPANESE);
   String currentWeather = '';
   late Future<String> cw;
 
   Future<String> getCurrentLocationWeather(String cityName) async {
-    Weather w = await wf.currentWeatherByCityName(cityName);
+    final w = await wf.currentWeatherByCityName(cityName);
     return w.weatherDescription!;
   }
 
@@ -30,15 +31,15 @@ class _WeatherAreaState extends State<WeatherArea> {
     cityName = widget.prefectureName;
     cw = getCurrentLocationWeather(cityName);
     cw.then((value) => {
-      currentWeather = value,
-    });
+          currentWeather = value,
+        },);
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30.0, left: 15.0),
-      child: Container(
+      padding: const EdgeInsets.only(top: 30, left: 15),
+      child: SizedBox(
         width: double.infinity,
         child: FutureBuilder(
             future: cw,
@@ -49,9 +50,8 @@ class _WeatherAreaState extends State<WeatherArea> {
                   '$weatherOutside：$currentWeather',
                 );
               }
-              return const Text("$weatherOutside：$gettingData");
-            }
-        ),
+              return const Text('$weatherOutside：$gettingData');
+            },),
       ),
     );
   }

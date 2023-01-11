@@ -24,7 +24,7 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = widget.screenId;
+    var selectedIndex = widget.screenId;
 
     void _onItemTapped(int index) {
       setState(() {
@@ -34,24 +34,22 @@ class _BottomNavigationState extends State<BottomNavigation> {
           return;
         } else if (selectedIndex == itemIndexId) {
           Navigator.push(
-            context,
-            PageTransition(
-              type: PageTransitionType.leftToRight,
-              child: ItemIndex(
-                loginStatus: widget.loginStatus,
-              ),
-              isIos: true,
-            )
-          );
+              context,
+              PageTransition(
+                type: PageTransitionType.leftToRight,
+                child: ItemIndex(
+                  loginStatus: widget.loginStatus,
+                ),
+                isIos: true,
+              ),);
         } else if (selectedIndex == chatScreenId) {
           if (widget.currentScreenId == itemIndexId) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) =>
-                  ChatScreen(
-                    loginStatus: widget.loginStatus,
-                  )
-              ),
+              MaterialPageRoute(
+                  builder: (context) => ChatScreen(
+                        loginStatus: widget.loginStatus,
+                      ),),
             );
           } else {
             Navigator.push(
@@ -62,17 +60,15 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     loginStatus: widget.loginStatus,
                   ),
                   isIos: true,
-                )
-            );
+                ),);
           }
         } else if (selectedIndex == myPageId) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) =>
-                MyPageScreen(
-                  loginStatus: widget.loginStatus,
-                )
-            ),
+            MaterialPageRoute(
+                builder: (context) => MyPageScreen(
+                      loginStatus: widget.loginStatus,
+                    ),),
           );
         }
       });

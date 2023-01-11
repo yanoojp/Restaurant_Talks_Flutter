@@ -1,9 +1,4 @@
 class Account {
-  String id;
-  String email;
-  String hotelName;
-  String nameOfRepresentative;
-  String prefecture;
 
   Account({
     this.id = '',
@@ -12,4 +7,9 @@ class Account {
     this.nameOfRepresentative = '',
     this.prefecture = '北海道',
   });
+  String id;
+  String email;
+  String hotelName;
+  String nameOfRepresentative;
+  String prefecture;
 }

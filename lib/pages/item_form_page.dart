@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:restaurant_talks_flutter/model/account.dart';
 import '../components/header.dart';
-import 'dart:io';
-import 'package:image_picker/image_picker.dart';
 import '../fixedDatas/datas.dart';
 import '../fixedDatas/variables.dart';
 import '../utils/firestore/items.dart';
@@ -43,19 +41,12 @@ class _ItemFormPageState extends State<ItemFormPage> {
     super.initState();
 
     itemName =
-      widget.itemObject != null
-        ? "${widget.itemObject['itemName']}"
-        : '';
+        widget.itemObject != null ? "${widget.itemObject['itemName']}" : '';
     itemCount =
-      widget.itemObject != null
-        ? "${widget.itemObject['itemCount']}"
-        : '0';
+        widget.itemObject != null ? "${widget.itemObject['itemCount']}" : '0';
     itemDetail =
-      widget.itemObject != null
-        ? "${widget.itemObject['itemDetail']}"
-        : '';
-    category =
-      widget.itemObject != null
+        widget.itemObject != null ? "${widget.itemObject['itemDetail']}" : '';
+    category = widget.itemObject != null
         ? "${widget.itemObject['category']}"
         : categoriesDropdown[0].value!;
   }
@@ -75,13 +66,8 @@ class _ItemFormPageState extends State<ItemFormPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    _itemNameController = TextEditingController(
-        text: itemName
-    );
-    _itemDetailController = TextEditingController(
-        text: itemDetail
-    );
+    _itemNameController = TextEditingController(text: itemName);
+    _itemDetailController = TextEditingController(text: itemDetail);
 
     void incrementCounter() {
       setState(() {
@@ -96,155 +82,156 @@ class _ItemFormPageState extends State<ItemFormPage> {
     }
 
     return Scaffold(
-        appBar: Header(
-          loginStatus: widget.loginStatus,
-          currentScreenId: widget.currentScreenId,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  width: double.infinity,
-                  child: const Text(
-                    itemNameLabel,
-                    textAlign: TextAlign.left,
-                  ),
+      appBar: Header(
+        loginStatus: widget.loginStatus,
+        currentScreenId: widget.currentScreenId,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                width: double.infinity,
+                child: Text(
+                  itemNameLabel,
+                  textAlign: TextAlign.left,
                 ),
-                TextField(
-                  controller: _itemNameController,
-                  onChanged: (value) {
-                    itemName = value;
-                  },
-                ),
-                Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(top: 30.0, bottom: 5.0),
-                      width: double.infinity,
-                      child: const Text(
-                        itemStockLabel,
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        FloatingActionButton(
-                          heroTag: "btn1",
-                          onPressed: () {
-                            if (_counter + int.parse(itemCount) > 0) {
-                              decrementCounter();
-                            }
-                          },
-                          tooltip: 'Decrement',
-                          child: const Icon(Icons.remove),
-                        ),
-                        Text(
-                          (_counter + int.parse(itemCount)).toString(),
-                          style: Theme.of(context).textTheme.headline4,
-                        ),
-                        FloatingActionButton(
-                          heroTag: "btn2",
-                          onPressed: incrementCounter,
-                          tooltip: 'Increment',
-                          child: const Icon(Icons.add),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 30.0),
+              ),
+              TextField(
+                controller: _itemNameController,
+                onChanged: (value) {
+                  itemName = value;
+                },
+              ),
+              Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(top: 30, bottom: 5),
                     width: double.infinity,
                     child: const Text(
-                      categoryLabel,
+                      itemStockLabel,
                       textAlign: TextAlign.left,
                     ),
                   ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: DropdownButton(
-                    items: categoriesDropdown,
-                    value: category,
-                    onChanged: (value) => {
-                      setState(() {
-                        category = value!;
-                      }),
-                    },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      FloatingActionButton(
+                        heroTag: 'btn1',
+                        onPressed: () {
+                          if (_counter + int.parse(itemCount) > 0) {
+                            decrementCounter();
+                          }
+                        },
+                        tooltip: 'Decrement',
+                        child: const Icon(Icons.remove),
+                      ),
+                      Text(
+                        (_counter + int.parse(itemCount)).toString(),
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      FloatingActionButton(
+                        heroTag: 'btn2',
+                        onPressed: incrementCounter,
+                        tooltip: 'Increment',
+                        child: const Icon(Icons.add),
+                      ),
+                    ],
                   ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 30.0),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Container(
+                  padding: const EdgeInsets.only(top: 30),
                   width: double.infinity,
                   child: const Text(
-                    itemDetailLabel,
+                    categoryLabel,
                     textAlign: TextAlign.left,
                   ),
                 ),
-                TextField(
-                  controller: _itemDetailController,
-                  onChanged: (value) {
-                    itemDetail = value;
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: DropdownButton(
+                  items: categoriesDropdown,
+                  value: category,
+                  onChanged: (value) => {
+                    setState(() {
+                      category = value!;
+                    }),
                   },
                 ),
-                Container(
-                  padding: const EdgeInsets.only(top: 30.0),
-                  width: double.infinity,
-                  child: const Text(
-                    itemImageLabel,
-                    textAlign: TextAlign.left,
-                  ),
+              ),
+              Container(
+                padding: const EdgeInsets.only(top: 30),
+                width: double.infinity,
+                child: const Text(
+                  itemDetailLabel,
+                  textAlign: TextAlign.left,
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(vertical: 10.0),
-                //   child: OutlinedButton(
-                //       onPressed: () async {
-                //         final XFile? image =
-                //           await _picker.pickImage(source: ImageSource.gallery);
-                //         _file = File(image!.path);
-                //         setState(() {});
-                //       },
-                //       child: const Text(pickAImage)
-                //   ),
-                // ),
+              ),
+              TextField(
+                controller: _itemDetailController,
+                onChanged: (value) {
+                  itemDetail = value;
+                },
+              ),
+              Container(
+                padding: const EdgeInsets.only(top: 30),
+                width: double.infinity,
+                child: const Text(
+                  itemImageLabel,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(vertical: 10.0),
+              //   child: OutlinedButton(
+              //       onPressed: () async {
+              //         final XFile? image =
+              //           await _picker.pickImage(source: ImageSource.gallery);
+              //         _file = File(image!.path);
+              //         setState(() {});
+              //       },
+              //       child: const Text(pickAImage)
+              //   ),
+              // ),
 
-                // //画像表示エリア
-                // if (_file != null && itemImage == '')
-                //   Image.file(_file!, fit: BoxFit.cover,)
-                // else if (itemImage != '')
-                //   Image.network(itemImage),
+              // //画像表示エリア
+              // if (_file != null && itemImage == '')
+              //   Image.file(_file!, fit: BoxFit.cover,)
+              // else if (itemImage != '')
+              //   Image.network(itemImage),
 
-                // 保存ボタンエリア
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+              // 保存ボタンエリア
+              Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   child: ElevatedButton(
-                    onPressed: () async{
-
+                    onPressed: () async {
                       final editItem = {
                         'accountId': widget.loginUserInfo.id,
                         'itemName': _itemNameController.text,
                         'itemDetail': _itemDetailController.text,
                         'category': category,
-                        'itemCount': (_counter + int.parse(itemCount)).toString(),
+                        'itemCount':
+                            (_counter + int.parse(itemCount)).toString(),
                         'updatedAt': Timestamp.fromDate(DateTime.now()),
                       };
 
                       if (widget.currentScreenId == itemNewCreatePageId) {
-                        var _result = await ItemFirestore.setItem(editItem);
-                        if (_result == true) {
+                        final result = await ItemFirestore.setItem(editItem);
+                        if (result == true) {
                           setState(_itemNameController.clear);
                           setState(_itemDetailController.clear);
                         } else {
-                        //  TBD
+                          //  TBD
                         }
                       } else {
-                        var _result = await ItemFirestore.updateItem(editItem, widget.itemUserDocId);
-                        if (_result == true) {
+                        final result = await ItemFirestore.updateItem(
+                            editItem, widget.itemUserDocId,);
+                        if (result == true) {
                           setState(_itemNameController.clear);
                           setState(_itemDetailController.clear);
                         } else {
@@ -253,20 +240,17 @@ class _ItemFormPageState extends State<ItemFormPage> {
                       }
 
                       // 保存ボタン押下時の画面遷移
-                      Navigator.push(
+                      await Navigator.push(
                           context,
                           PageTransition(
                               type: PageTransitionType.leftToRight,
                               child: ItemIndex(
-                                  loginStatus: widget.loginStatus,
-                              )
-                          )
-                      );
+                                loginStatus: widget.loginStatus,
+                              ),),);
                     },
-                    child: Text(saveButton),
-                  )
-                ),
-                widget.currentScreenId == itemEditPageId
+                    child: const Text(saveButton),
+                  ),),
+              widget.currentScreenId == itemEditPageId
                   ? TextButton(
                       onPressed: () {
                         ItemFirestore.deleteItem(widget.itemUserDocId);
@@ -275,18 +259,16 @@ class _ItemFormPageState extends State<ItemFormPage> {
                             PageTransition(
                                 type: PageTransitionType.leftToRight,
                                 child: ItemIndex(
-                                    loginStatus: widget.loginStatus,
-                                )
-                            )
-                        );
+                                  loginStatus: widget.loginStatus,
+                                ),),);
                       },
-                      child: Text(deleteItem),
+                      child: const Text(deleteItem),
                     )
                   : const SizedBox.shrink()
-              ],
-            ),
+            ],
           ),
         ),
+      ),
     );
   }
 }
