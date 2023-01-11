@@ -70,9 +70,6 @@ class _MyPageState extends State<MyPageScreen> {
               ),
             ),
             TextField(
-              onChanged: (text) {
-                user['email'] = text;
-              },
               controller: emailController,
             ),
             Container(
@@ -84,9 +81,6 @@ class _MyPageState extends State<MyPageScreen> {
               ),
             ),
             TextField(
-              onChanged: (text) {
-                user['hotelName'] = text;
-              },
               controller: hotelnameController,
             ),
             Container(
@@ -98,9 +92,6 @@ class _MyPageState extends State<MyPageScreen> {
               ),
             ),
             TextField(
-              onChanged: (text) {
-                user['nameOfRepresentative'] = text;
-              },
               controller: nameOfRepresentativeController,
             ),
             /* 都道府県選択ドロップダウン　*/
