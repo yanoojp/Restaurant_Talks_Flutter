@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/components/weather_area.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
-
+import 'package:restaurant_talks_flutter/utils/firestore/items.dart';
 import '../components/bottom_navigation.dart';
 import '../components/header.dart';
 import '../fixedDatas/datas.dart';
@@ -33,21 +33,6 @@ class _ItemIndexState extends State<ItemIndex> {
     super.initState();
     _selectedCategoryValue = categoriesDropdown[0].value!;
   }
-
-  // var items = itemsArray;
-
-  // カテゴリーソートはflutter連携時にやると良さそうなので、保留
-  // List<Map<String, Object>> getItems() {
-  //   if (_selectedCategoryValue == appetizerLabel) {
-  //     items = items.where('category', isEqualTo: appetizerLabel) as List<Map<String, Object>>;
-  //   } else if (_selectedCategoryValue == mainDishLabel) {
-  //     items = items.where('category', isEqualTo: mainDishLabel);
-  //   } else if (_selectedCategoryValue == beverageLabel) {
-  //     items = items.where('category', isEqualTo: beverageLabel);
-  //   }
-  //
-  //   return items;
-  // }
 
   // item一覧のList作成
   List<Widget> getList(List<Object> itemObjectList, snapshot) {
@@ -91,6 +76,8 @@ class _ItemIndexState extends State<ItemIndex> {
       ),
       body: Column(
         children: [
+
+          // ソート用 Dropdown
           DropdownButton(
             items: categoriesDropdown,
             value: _selectedCategoryValue,
@@ -100,19 +87,14 @@ class _ItemIndexState extends State<ItemIndex> {
               }),
             },
           ),
+
           Container(
             padding: const EdgeInsets.only(top: 10),
             height: MediaQuery.of(context).size.height / 100 * 60,
             width: MediaQuery.of(context).size.width,
             child: SingleChildScrollView(
               child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    // .collection('Users')
-                    .collection(itemCollection)
-                    .where('accountId', isEqualTo: myAccount.id)
-                    // .doc(myAccount.id)
-                    .orderBy('updatedAt')
-                    .snapshots(),
+                stream: ItemFirestore.getItem(myAccount.id, _selectedCategoryValue),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return const Text(

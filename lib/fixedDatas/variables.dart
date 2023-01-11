@@ -49,7 +49,7 @@ const String choosePosition = 'ポジションを選択';
 const String kitchen = 'キッチン';
 const String hall = 'ホール';
 const String appetizerLabel = '前菜';
-const String sortByCategoryLabel = 'カテゴリーで絞る';
+const String sortByCategoryLabel = 'カテゴリーで絞る（全カテゴリー表示）';
 const String mainDishLabel = 'メインディッシュ';
 const String beverageLabel = 'ビバレージ';
 
