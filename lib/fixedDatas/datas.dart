@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_talks_flutter/fixedDatas/variables.dart';
 
-Map<String, Object> user = {
-  'id': 1,
-  'email': 'email@email.com',
-  'hotelName': 'Ritz Carlton',
-  'nameOfRepresentative': 'Yamada Taro',
-  'prefecture': 'Tokyo',
-};
-
 final prefectures = [
   '北海道',
   '青森県',
