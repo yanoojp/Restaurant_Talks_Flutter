@@ -230,7 +230,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                         }
                       } else {
                         final result = await ItemFirestore.updateItem(
-                            editItem, widget.itemUserDocId,);
+                            editItem, widget.itemUserDocId!,);
                         if (result == true) {
                           setState(_itemNameController.clear);
                           setState(_itemDetailController.clear);
@@ -253,7 +253,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
               widget.currentScreenId == itemEditPageId
                   ? TextButton(
                       onPressed: () {
-                        ItemFirestore.deleteItem(widget.itemUserDocId);
+                        ItemFirestore.deleteItem(widget.itemUserDocId!);
                         Navigator.push(
                             context,
                             PageTransition(

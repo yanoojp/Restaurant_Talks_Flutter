@@ -50,10 +50,12 @@ class _ItemIndexState extends State<ItemIndex> {
   // }
 
   // item一覧のList作成
-  List<Widget> getList(itemObjectList, snapshot) {
+  List<Widget> getList(List<Object> itemObjectList, snapshot) {
     final listViewChildren = <Widget>[];
 
     for (var i = 0; i < itemObjectList.length; i++) {
+      final itemObject =  itemObjectList[i] as Map;
+
       listViewChildren.add(Padding(
         padding: const EdgeInsets.all(10),
         child: ElevatedButton(
@@ -63,15 +65,16 @@ class _ItemIndexState extends State<ItemIndex> {
               context,
               MaterialPageRoute(
                   builder: (context) => ItemFormPage(
-                        itemObject: itemObjectList[i],
+                        itemObject: itemObject,
                         loginStatus: widget.loginStatus,
                         loginUserInfo: myAccount,
                         currentScreenId: itemEditPageId,
-                        itemUserDocId: snapshot.data.docs[i].id,
+                        itemUserDocId: snapshot.data.docs[i].id as String,
                       ),),
             );
           },
-          child: Text(itemObjectList[i]['itemName']),
+          child: Text(itemObject['itemName'] as String),
+          // child: Text('itemName'),
         ),
       ),);
     }

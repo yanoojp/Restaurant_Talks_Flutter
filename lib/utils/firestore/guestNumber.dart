@@ -25,13 +25,13 @@ class GuestNumberFirestore {
           .collection('guestNumbers')
           .where('accountId', isEqualTo: accountId)
           .get();
-      for (final doc in snapShot.docs) async {
-        final String docId = doc.reference.id;
+      snapShot.docs.forEach((doc) async{
+        final String docId = doc.reference.id as String;
         await guestNumber.doc(docId).update({
           'accountId': accountId,
           'guestNumber': updateGuestNumber,
         });
-      }
+      });
       return true;
     } on FirebaseException {
       return false;
@@ -43,7 +43,7 @@ class GuestNumberFirestore {
         .collection('guestNumbers')
         .where('accountId', isEqualTo: accountId)
         .get();
-    final gn = snapShot.docs.first.data()['guestNumber'];
+    final gn = snapShot.docs.first.data()['guestNumber'] as int;
     return gn;
   }
 
@@ -52,9 +52,9 @@ class GuestNumberFirestore {
         .collection('guestNumbers')
         .where('accountId', isEqualTo: accountId)
         .get();
-    for (final doc in snapShot.docs) async {
-      final String docId = doc.reference.id;
+    snapShot.docs.forEach((doc) async{
+      final String docId = doc.reference.id as String;
       await guestNumber.doc(docId).delete();
-    }
+    });
   }
 }

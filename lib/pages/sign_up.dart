@@ -179,9 +179,9 @@ class _SignUpState extends State<SignUp> {
                               nameOfRepresentativeController.text,
                           prefecture: selectedPrefectureValue,
                         );
-                        final result =
+                        final _result =
                             await UserFirestore.setUser(newAccount, email);
-                        if (result == true) {
+                        if (_result == true) {
                           Authentication.myAccount = newAccount;
 
                           await GuestNumberFirestore.setGuestNumber(

@@ -6,7 +6,7 @@ class ItemFirestore {
   static final CollectionReference items =
       _firestoreInstance.collection('Items');
 
-  static Future<bool> setItem(newItem) async {
+  static Future<bool> setItem(Map<String, dynamic> newItem) async {
     try {
       await FirebaseFirestore.instance.collection(itemCollection).doc().set(newItem);
       return true;
@@ -15,7 +15,7 @@ class ItemFirestore {
     }
   }
 
-  static Future<bool> updateItem(updateItem, docId) async {
+  static Future<bool> updateItem(Map<String, Object?> updateItem, String docId) async {
     try {
       await items.doc(docId).update(updateItem);
       return true;
@@ -24,7 +24,7 @@ class ItemFirestore {
     }
   }
 
-  static Future<dynamic> deleteItem(docId) async {
+  static Future<dynamic> deleteItem(String docId) async {
     await items.doc(docId).delete();
   }
 }

@@ -29,9 +29,9 @@ class UserFirestore {
       final myAccount = Account(
         id: uid,
         email: email,
-        hotelName: data['hotelName'],
-        nameOfRepresentative: data['nameOfRepresentative'],
-        prefecture: data['prefecture'],
+        hotelName: data['hotelName'] as String,
+        nameOfRepresentative: data['nameOfRepresentative'] as String,
+        prefecture: data['prefecture'] as String,
       );
 
       Authentication.myAccount = myAccount;
